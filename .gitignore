@@ -1,0 +1,3 @@
+env/
+/clientdynamic/__pycache__/
+.env
