@@ -13,9 +13,14 @@ user_long_token = access_token_info['access_token']
 graph = facebook.GraphAPI(access_token=user_long_token, 
                           version="3.1")
 
-print(access_token_info)
+# print(access_token_info)
 pages_data = graph.get_object("/me/accounts")
 
-print(pages_data)
+page_id = pages_data['data'][0]['id']
+page_name = pages_data['data'][0]['name']
+page_category = pages_data['data'][0]['category']
+page_tasks = pages_data['data'][0]['tasks']
+
+print("{} ID# {} is {} tasked to {} contents".format(page_name, page_id, page_category, page_tasks))
 # page id = 309647179589755
 # curl -i -X GET "https://graph.facebook.com/309647179589755?fields=access_token&access_token=EAAMNq9M60P0BAGJRLC5OhAg1Czsy4q40kZAn1so8PvvSl77D1cEQxlhMrk1xFXjeyT0ZAdBmuoddmIQZCwvGjeZCdf7d3foIPJ76wbxPBTd8kqSh43FAeFzoNglDRUTNQOvpqozSPX585bIOZCIhCQWKwY7Ky6LrTgNFyTUJ3DtIIyNJ0U8b7JhVVrO4KwWcR3xbiijscZAQZDZD"
