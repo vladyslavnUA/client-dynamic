@@ -14,8 +14,8 @@ class IndexView(ListView):
 
         return render(request, "clients/dashboard.html", context)
 
-    # def post(self, request):
+class UserProfileView(ListView):
+    def get(self, request):
+        context = {'data': 'self.getWeatherData()'}
 
-    #     city_name = request.POST.get('city_name')
-    #     context = self.getWeatherData(city_name)
-    #     return render(request, "weather/index.html", context)
+        return render(request, "clients/user.html", context)
