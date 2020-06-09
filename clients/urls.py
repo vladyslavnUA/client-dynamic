@@ -4,7 +4,7 @@ from . import views
 app_name = 'clients'
 
 urlpatterns = [
-    path('', views.IndexView.as_view(), name='home'),
+    path('', views.IndexView.as_view(), name='dashboard'),
     path('user/', views.UserProfileView.as_view(), name='user-profile'),
     
 ]
