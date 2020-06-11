@@ -14,6 +14,10 @@ class IndexView(ListView):
 
         return render(request, "clients/index.html", context)
 
+class DashboardView(ListView):
+    def get(self, request):
+        return render(request, "clients/dashboard.html")
+
 class UserProfileView(ListView):
     def get(self, request):
         context = {'data': 'self.getWeatherData()'}
