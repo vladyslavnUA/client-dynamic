@@ -26,7 +26,11 @@ class DashboardView(ListView):
 class UserProfileView(ListView):
     def get(self, request):
         user = User.objects.get(pk=request.user.id)
-        name = str(user.first_name)+" "+str(user.last_name)
+
+        name = False
+        if user.last_name != "" and user.last_name != "":
+            name = str(user.first_name)+" "+str(user.last_name)
+
         context = {"user": user, "name": name}
         
         return render(request, "clients/user.html", context)
