@@ -12,7 +12,7 @@ class IndexView(ListView):
     def get(self, request):
         context = {'data': 'self.getWeatherData()'}
 
-        return render(request, "clients/dashboard.html", context)
+        return render(request, "clients/index.html", context)
 
 class UserProfileView(ListView):
     def get(self, request):
