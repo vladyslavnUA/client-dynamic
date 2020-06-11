@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Creative - Start Bootstrap Theme</title>
+        <title>Client Dynamic</title>
         {% load static %}
 
         <!-- Favicon-->
@@ -35,7 +35,7 @@
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
                         {% if user.is_authenticated %}
-                        <li class="nav-item"><span class="nav-link js-scroll-trigger">Hello {{user.username}}</span></li>
+                        <li class="nav-item"><span class="nav-link js-scroll-trigger">Hello {{user.username | capfirst}}</span></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'logout' %}">Logout</a></li>
                         {% else %}
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'login' %}">Login</a></li>
@@ -68,7 +68,11 @@
                         <h2 class="text-white mt-0">We've got what you need!</h2>
                         <hr class="divider light my-4" />
                         <p class="text-white-50 mb-4">Start Bootstrap has everything you need to get your new website up and running in no time! Choose one of our open source, free to download, and easy to use themes! No strings attached!</p>
-                        <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>
+                        {% if not user.is_authenticated %}
+                        <a class="btn btn-light btn-xl js-scroll-trigger" href="{% url 'accounts:signup' %}">Get Started!</a>
+                        {% else %}
+                        <a class="btn btn-light btn-xl js-scroll-trigger" href="{ url 'clients:dashboard' %}">Get Started!</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -202,7 +206,7 @@
         </section>
         <!-- Footer-->
         <footer class="bg-light py-5">
-            <div class="container"><div class="small text-center text-muted">Copyright © 2020 - Start Bootstrap</div></div>
+            <div class="container"><div class="small text-center text-muted">Copyright © 2020 - Client Dynamic</div></div>
         </footer>
 
         {% load static %}

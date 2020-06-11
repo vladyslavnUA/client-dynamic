@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Creative - Start Bootstrap Theme</title>
+        <title>Client Dynamic</title>
         {% load static %}
 
         <!-- Favicon-->
@@ -29,7 +29,7 @@
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/">Home</a></li>
                         {% if user.is_authenticated %}
-                        <li class="nav-item"><span class="nav-link js-scroll-trigger">Hello {{user.username}}!</span></li>
+                        <li class="nav-item"><span class="nav-link js-scroll-trigger">Hello {{user.username | capfirst}}!</span></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'logout' %}">Logout</a></li>
                         {% else %}
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'login' %}">Login</a></li>
