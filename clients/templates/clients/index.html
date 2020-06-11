@@ -28,7 +28,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
                         {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{ url 'clients:dashboard' %}">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'clients:dashboard' %}">Dashboard</a></li>
                         {% endif %}
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Services</a></li>
@@ -71,7 +71,7 @@
                         {% if not user.is_authenticated %}
                         <a class="btn btn-light btn-xl js-scroll-trigger" href="{% url 'accounts:signup' %}">Get Started!</a>
                         {% else %}
-                        <a class="btn btn-light btn-xl js-scroll-trigger" href="{ url 'clients:dashboard' %}">Get Started!</a>
+                        <a class="btn btn-light btn-xl js-scroll-trigger" href="{% url 'clients:dashboard' %}">Get Started!</a>
                         {% endif %}
                     </div>
                 </div>
