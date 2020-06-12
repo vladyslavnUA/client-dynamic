@@ -15,7 +15,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'clientdynamic.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', 'clientdynamic.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
