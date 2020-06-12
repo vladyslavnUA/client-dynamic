@@ -1,6 +1,6 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests
 import datetime
 from dateutil import parser
@@ -21,6 +21,7 @@ class IndexView(ListView):
         
 class DashboardView(ListView):
     def get(self, request):
+        user = User.objects.get(pk=request.user.id)
         return render(request, "clients/dashboard.html")
 
 class LinkPageView(ListView):
