@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<div class="wrapper">
+        {% include "partials/sidebar.html" %}
+
+<div class="content" style="margin-left: 35%; margin-top: 10%;">
+    <div class="col-lg-8 col-md-12">
+        <div class="card ">
+          <div class="card-header">
+                <a href="{% url 'clients:new-client' %}" style="float: right;" class="btn btn-success">New Client</a>
+                <br />
+            <h4 class="card-title">Your Clients</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+                {% if clients %}
+              <table class="table tablesorter " id="">
+                <thead class=" text-primary">
+                  <tr>
+                    <th>
+                      Name
+                    </th>
+                    <th>
+                      Email
+                    </th>
+                    <th>
+                      Address
+                    </th>
+                    <th class="text-center">
+                      Revenue
+                    </th>
+                    <th class="text-center">
+                        Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                    {% for client in clients %}
+
+                    <tr>
+                      <td>
+                        {{client.name}}
+                      </td>
+                      <td>
+                        {{client.email}}
+                      </td>
+                      <td>
+                        {{client.address}}
+                      </td>
+                      <td class="text-center">
+                        6,738
+                      </td>
+                      <td class="text-center">
+                          <a href="{% url 'clients:new-client' %}" class="mr-3"><i class="tim-icons icon-pencil"></i></a>
+                          <a href="{% url 'clients:new-client' %}" ><i class="tim-icons icon-trash-simple"></i></a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    {% else%}
+                    <span>You don't have any clients<span/>
+                    <a href="{% url 'clients:new-client' %}">Add Client</a>
+
+                </tbody>
+              </table>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+{% endblock %}

@@ -19,7 +19,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">Notifications</a>
+            <a class="navbar-brand" href="javascript:void(0)">Add Client</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -73,66 +73,71 @@
       </nav>
       <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
+            <div class="modal-content">
             <div class="modal-header">
-              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <i class="tim-icons icon-simple-remove"></i>
-              </button>
+                </button>
             </div>
-          </div>
+            </div>
         </div>
-      </div>
-      <!-- End Navbar -->
-      <div class="content">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-body">
-                <div class="places-buttons">
-                  <div class="row">
-                    <div class="col-md-6 ml-auto mr-auto text-center">
-                      <h4 class="card-title">
-                        Link you social media pages
-                        <p class="category">Click to link</p>
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-8 ml-auto mr-auto">
-                      <div class="row">
-                        <div class="col-md-4">
-                          <a class="btn btn-info btn-block alert-info" href="{% url 'clients:dashboard' %}">Facebook</a>
-                        </div>
-                        <div class="col-md-4">
-                          <a class="btn btn-warning btn-block" href="{% url 'clients:dashboard' %}">Instagram</a>
-                        </div>
-                        <div class="col-md-4">
-                          <a class="btn btn-success btn-block" href="{% url 'clients:dashboard' %}">Twitter</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-8 ml-auto mr-auto">
-                      <div class="row">
-                        <div class="col-md-4">
-                          <a class="btn btn-danger btn-block" href="{% url 'clients:dashboard' %}">Youtube</a>
-                        </div>
-                        <div class="col-md-4">
-                          <a class="btn btn-primary btn-block" href="{% url 'clients:dashboard' %}">Reddit</a>
-                        </div>
-                        <div class="col-md-4">
-                          <a class="btn btn-danger btn-block" href="{% url 'clients:dashboard' %}">Pinterest</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+        </div>
+        <!-- End Navbar -->
+
+
+
+        <div class="content">
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="card">
+                            <div class="card-body">
+
+                    <form method="post" action="" class="mx-auto form-horizontal">
+                        <!--  -->
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <div class="row spacer">
+                                <div class="col-4 offset-2">
+                                    <button type="submit" class="btn btn-block btn-primary">Create</button>
+                                </div>
+                            </div>
+                                
+                            <!-- <div class="form-group row">
+                                <div class="col-8">
+                                    <label for="id_client_name">Client's Name</label>
+                                    <input class="form-control" type="text" name="client-name" id="id_client_name" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-8">
+                                    <label for="id_client_email">Client's Email</label>
+                                    <input class="form-control" type="email" name="client_email" id="id_client_email" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-8">
+                                    <label for="id_client_address">Client's Address</label>
+                                    <input class="form-control" type="address" name="client_address" id="id_client_address" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-8">
+                                    <input type="submit" value="login" class="btn btn-success">
+                                    <input type="hidden" name="next" value="{{ next }}">
+                                </div>
+                            </div>
+
+                            <div class="form group row mt-5">
+                                <span></span><a href="{% url 'accounts:signup' %}"> Create an account</a>
+                            </div> -->
+                    </form>
                 </div>
-              </div>
             </div>
-          </div>
+            </div>
         </div>
-      </div>
-      
+    </div>
+  </div>
+</div>
+
 {% endblock %}

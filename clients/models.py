@@ -17,3 +17,11 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
+
+class Client(models.Model):
+    name = models.CharField(max_length=255, blank=True)
+    email = models.EmailField(max_length=350, blank=True)
+    address = models.CharField(max_length=350, blank=True)
+
+    def __str__(self):
+        return self.name
