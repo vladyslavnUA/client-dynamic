@@ -1,1 +1,1 @@
-web: gunicorn client-dynamic.wsgi --log-file -
+web: gunicorn clientdynamic.wsgi --log-file -
