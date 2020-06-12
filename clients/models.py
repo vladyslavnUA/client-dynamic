@@ -8,6 +8,7 @@ class Profile(models.Model):
     company = models.CharField(max_length=30, blank=True)
     bio = models.CharField(max_length=30, blank=True)
     role = models.CharField(max_length=30, blank=True)
+    # new = models.BooleanField(default=True)
 
     def __str__(self):  # __unicode__ for Python 2
         return self.user.username

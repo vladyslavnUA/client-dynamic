@@ -18,10 +18,17 @@ class IndexView(ListView):
         context = {'data': 'self.getWeatherData()'}
 
         return render(request, "clients/index.html", context)
-
+        
 class DashboardView(ListView):
     def get(self, request):
         return render(request, "clients/dashboard.html")
+
+class LinkPageView(ListView):
+    def get(self, request):
+        context = {'data': 'self.getWeatherData()'}
+
+        return render(request, "clients/link-page.html", context)
+
 
 class UserProfileView(ListView):
     def get(self, request):
@@ -49,7 +56,7 @@ class UserProfileView(ListView):
 
 
         user.save()
-        return HttpResponseRedirect(reverse('clients:dashboard'))
+        return HttpResponseRedirect(reverse('clients:link-page'))
 
 
 
