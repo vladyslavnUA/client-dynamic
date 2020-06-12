@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <form method="post" action="" class="mx-auto form-horizontal">
+        <!--  -->
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="row form-row spacer">
+                    <div class="col-2">
+                        <label>{{form.name.label}}</label>
+                    </div>
+                    <div class="col-4">
+                        <div class="input-group">
+                            {{form.name}}
+                            <div class="input-group-append">
+                                <button class="btn btn-success add-form-row">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="row spacer">
+                    <div class="col-4 offset-2">
+                        <button type="submit" class="btn btn-block btn-primary">Create</button>
+                    </div>
+                </div>
+                
+            <!-- <div class="form-group row">
+                <div class="col-8">
+                    <label for="id_client_name">Client's Name</label>
+                    <input class="form-control" type="text" name="client-name" id="id_client_name" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-8">
+                    <label for="id_client_email">Client's Email</label>
+                    <input class="form-control" type="email" name="client_email" id="id_client_email" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-8">
+                    <label for="id_client_address">Client's Address</label>
+                    <input class="form-control" type="address" name="client_address" id="id_client_address" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-8">
+                    <input type="submit" value="login" class="btn btn-success">
+                    <input type="hidden" name="next" value="{{ next }}">
+                </div>
+            </div>
+
+            <div class="form group row mt-5">
+                <span></span><a href="{% url 'accounts:signup' %}"> Create an account</a>
+            </div> -->
+        </form>
+    </div>
+</div>
