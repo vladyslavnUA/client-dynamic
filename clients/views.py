@@ -1,6 +1,6 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests
 import datetime
 from dateutil import parser
@@ -18,10 +18,18 @@ class IndexView(ListView):
         context = {'data': 'self.getWeatherData()'}
 
         return render(request, "clients/index.html", context)
-
+        
 class DashboardView(ListView):
     def get(self, request):
+        user = User.objects.get(pk=request.user.id)
         return render(request, "clients/dashboard.html")
+
+class LinkPageView(ListView):
+    def get(self, request):
+        context = {'data': 'self.getWeatherData()'}
+
+        return render(request, "clients/link-page.html", context)
+
 
 class UserProfileView(ListView):
     def get(self, request):
@@ -49,7 +57,7 @@ class UserProfileView(ListView):
 
 
         user.save()
-        return HttpResponseRedirect(reverse('clients:dashboard'))
+        return HttpResponseRedirect(reverse('clients:link-page'))
 
 
 
