@@ -23,6 +23,7 @@ class IndexView(ListView):
         context = {'data': 'self.getWeatherData()'}
 
         return render(request, "clients/index.html", context)
+
         
 class DashboardView(ListView):
     def get(self, request):
@@ -42,6 +43,15 @@ class LinkPageView(ListView):
         context = {'data': 'self.getWeatherData()'}
 
         return render(request, "clients/link-page.html", context)
+
+class PagesView(ListView):
+    def get(self, request):
+        user = User.objects.get(pk=request.user.id)
+        social_user = user.social_auth.get(provider="facebook")
+
+        context = {'user': social_user.extra_data['access_token']}
+
+        return render(request, "clients/pages.html", context)
 
 
 class UserProfileView(ListView):

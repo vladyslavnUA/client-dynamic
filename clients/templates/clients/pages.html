@@ -93,7 +93,7 @@
                   <div class="row">
                     <div class="col-md-6 ml-auto mr-auto text-center">
                       <h4 class="card-title">
-                        Link you social media pages
+                        Select your business page
                         <p class="category">Click to link</p>
                       </h4>
                     </div>
@@ -101,29 +101,8 @@
                   <div class="row">
                     <div class="col-lg-8 ml-auto mr-auto">
                       <div class="row">
-                        <div class="col-md-4">
-                          <a class="btn btn-info btn-block alert-info" href="{% url 'clients:select-page' %}">Facebook</a>
-                        </div>
-                        <div class="col-md-4">
-                          <a class="btn btn-warning btn-block" href="{% url 'clients:dashboard' %}">Instagram</a>
-                        </div>
-                        <div class="col-md-4">
-                          <a class="btn btn-success btn-block" href="{% url 'clients:dashboard' %}">Twitter</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-8 ml-auto mr-auto">
-                      <div class="row">
-                        <div class="col-md-4">
-                          <a class="btn btn-danger btn-block" href="{% url 'clients:dashboard' %}">Youtube</a>
-                        </div>
-                        <div class="col-md-4">
-                          <a class="btn btn-primary btn-block" href="{% url 'clients:dashboard' %}">Reddit</a>
-                        </div>
-                        <div class="col-md-4">
-                          <a class="btn btn-danger btn-block" href="{% url 'clients:dashboard' %}">Pinterest</a>
+                        <div class="col-md-8">
+                          <span>{{user}}</span>
                         </div>
                       </div>
                     </div>
