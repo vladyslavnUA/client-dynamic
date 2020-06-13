@@ -13,8 +13,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # FACEBOOK API KEYS
-SOCIAL_AUTH_FACEBOOK_KEY = str(os.getenv('SOCIAL_AUTH_FACEBOOK_KEY'))  # FB App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = str(os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET'))  # FB App Secret
+SOCIAL_AUTH_FACEBOOK_KEY = '1476435592528450'
+# str(os.getenv('SOCIAL_AUTH_FACEBOOK_KEY'))  # FB App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '2841928cca8f0223617ee501039ac7b1'
+# str(os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET'))  # FB App Secret
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -34,7 +36,7 @@ INSTALLED_APPS = [
     'social_django',
     'accounts',
     'projects',
-    'clients'
+    'clients',
 ]
 
 MIDDLEWARE = [
@@ -46,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 
 ]
 
