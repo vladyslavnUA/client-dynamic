@@ -17,6 +17,16 @@ SOCIAL_AUTH_FACEBOOK_KEY = '1476435592528450'
 # str(os.getenv('SOCIAL_AUTH_FACEBOOK_KEY'))  # FB App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = '2841928cca8f0223617ee501039ac7b1'
 # str(os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET'))  # FB App Secret
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
+  'fields': 'id, name, email, picture.type(large), link'
+}
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
+    ('name', 'name'),
+    ('email', 'email'),
+    ('picture', 'picture'),
+    ('link', 'profile_url'),
+]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
