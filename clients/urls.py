@@ -11,4 +11,5 @@ urlpatterns = [
     path('link/', views.LinkPageView.as_view(), name='link-page'),
     path('clientele/', views.ClienteleView.as_view(), name='clientele'),
     path('clientele/new', views.ClientCreateView.as_view(), name="new-client"),
+    path('pages/', views.PagesView.as_view(), name="select-page"),
 ]
