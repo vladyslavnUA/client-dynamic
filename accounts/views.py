@@ -17,6 +17,8 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 
 class SignUpView(CreateView):
@@ -24,6 +26,12 @@ class SignUpView(CreateView):
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
 
+def login(request):
+  return render(request, 'registration/login.html')
+
+@login_required
+def home(request):
+  return render(request, 'home.html')
 
 # def home(request):
 #     '''Render the home page of the site.'''

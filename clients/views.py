@@ -120,7 +120,6 @@ class ClientDeleteView(DeleteView):
     queryset = Client.objects.all()
 
     def test_func(self):
-        '''Ensures the user adding the Code is an officer.'''
         client = self.get_object()
         user = self.request.user
         return (user.is_authenticated is True)

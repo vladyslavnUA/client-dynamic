@@ -12,6 +12,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
+# FACEBOOK API KEYS
+SOCIAL_AUTH_FACEBOOK_KEY = str(os.getenv('SOCIAL_AUTH_FACEBOOK_KEY'))  # FB App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = str(os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET'))  # FB App Secret
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -27,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
     'accounts',
     'projects',
     'clients'
@@ -70,9 +75,18 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.linkedin.LinkedinOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 WSGI_APPLICATION = 'clientdynamic.wsgi.application'
@@ -135,5 +149,7 @@ os.path.join(BASE_DIR, 'static'),
 )
 
 # Where to redirect during authentication
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = "/user"
+LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = "/"
