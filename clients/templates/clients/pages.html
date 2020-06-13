@@ -102,7 +102,25 @@
                     <div class="col-lg-8 ml-auto mr-auto">
                       <div class="row">
                         <div class="col-md-8">
-                          <span>{{user}}</span>
+                          <div class="card">
+                          {% for page in pages %}
+                          <div class="card-header">
+                          <h3>{{page.name}}</h3>
+                          <span>{{page.category}}</span>
+                        </div>
+                        <div class="card-body">
+                          {% for task in page.tasks%}
+                            <span><strong>Tasks: </strong>{{task}}</span>
+                          {% endfor %}
+                          <span><strong> Page ID: </strong>{{page.id}}</span>
+                          <br>
+                          <span><strong> Page Access Token: </strong>{{page.access_token}}</span>
+                        </div>
+                        <div class="col-md-7">
+                            <a class="btn btn-info btn-block alert-info" href="">Connect this page</a>
+                          </div>
+                          {% endfor %}
+                        </div>
                         </div>
                       </div>
                     </div>

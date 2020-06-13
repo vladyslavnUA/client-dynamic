@@ -16,7 +16,8 @@ from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from .models import Profile, Client
 from .forms import ClientForm
-
+import facebook
+import json
 
 class IndexView(ListView):
     def get(self, request):
@@ -45,11 +46,36 @@ class LinkPageView(ListView):
         return render(request, "clients/link-page.html", context)
 
 class PagesView(ListView):
+
+    # def getGraph(self, user):
+    #     url = "https://community-open-weather-map.p.rapidapi.com/forecast"
+
+    #     querystring = {"q":city}
+
+    #     headers = {
+    #         'x-rapidapi-host': "community-open-weather-map.p.rapidapi.com",
+    #         'x-rapidapi-key': "b04c542bd7mshf4fe4d9539e1dd8p1a9f38jsncddc8a3a9c2a"
+    #         }
+
+    #     response = requests.request("GET", url, headers=headers, params=querystring)
+    #     result = response.json()
+
+    #     return result
+
+
     def get(self, request):
         user = User.objects.get(pk=request.user.id)
         social_user = user.social_auth.get(provider="facebook")
+        token = social_user.extra_data['access_token']
 
-        context = {'user': social_user.extra_data['access_token']}
+        graph = facebook.GraphAPI(token)
+        data = graph.get_object('me', fields='first_name, location, link, email, posts')
+
+        resp = graph.get_object('me/accounts')
+
+        context = {'pages':  resp["data"]}
+
+
 
         return render(request, "clients/pages.html", context)
 
