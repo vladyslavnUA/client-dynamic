@@ -57,6 +57,8 @@ class PagesView(ListView):
 
         resp = graph.get_object('me/accounts')
 
+        print(graph.get_object('me/permissions'))
+
         context = {'pages':  resp["data"], 'resp': resp, 'me': data}
 
 
