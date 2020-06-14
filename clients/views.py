@@ -47,22 +47,6 @@ class LinkPageView(ListView):
 
 class PagesView(ListView):
 
-    # def getGraph(self, user):
-    #     url = "https://community-open-weather-map.p.rapidapi.com/forecast"
-
-    #     querystring = {"q":city}
-
-    #     headers = {
-    #         'x-rapidapi-host': "community-open-weather-map.p.rapidapi.com",
-    #         'x-rapidapi-key': "b04c542bd7mshf4fe4d9539e1dd8p1a9f38jsncddc8a3a9c2a"
-    #         }
-
-    #     response = requests.request("GET", url, headers=headers, params=querystring)
-    #     result = response.json()
-
-    #     return result
-
-
     def get(self, request):
         user = User.objects.get(pk=request.user.id)
         social_user = user.social_auth.get(provider="facebook")
@@ -73,11 +57,28 @@ class PagesView(ListView):
 
         resp = graph.get_object('me/accounts')
 
-        context = {'pages':  resp["data"]}
+        context = {'pages':  resp["data"], 'resp': resp, 'me': data}
 
 
 
         return render(request, "clients/pages.html", context)
+
+
+class SinglePageView(ListView):
+
+    def get(self, request, token, page_id, page_name):
+
+        user = User.objects.get(pk=request.user.id)
+        user = user.social_auth.get(provider="facebook")
+
+        graph = facebook.GraphAPI(token)
+        posts = graph.get_object('{}/posts'.format(page_id), fields='id, message, actions')
+
+        context = {'posts':  posts['data'], 'page_id': page_id, 'page_name': page_name }
+ 
+
+
+        return render(request, "clients/single-page.html", context)
 
 
 class UserProfileView(ListView):

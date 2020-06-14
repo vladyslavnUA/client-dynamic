@@ -3,6 +3,9 @@
 {% block content %}
 
 {% load static %}
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=260677941710722&autoLogAppEvents=1" nonce="WziU4XKh"></script>
+
 <div class="wrapper">
     {% include "partials/sidebar.html" %}
 
@@ -93,7 +96,7 @@
                   <div class="row">
                     <div class="col-md-6 ml-auto mr-auto text-center">
                       <h4 class="card-title">
-                        Select your business page
+                        {{page_name}} Published Posts 
                         <p class="category">Click to link</p>
                       </h4>
                     </div>
@@ -101,32 +104,18 @@
                   <div class="row">
                     <div class="col-lg-8 ml-auto mr-auto">
                       <div class="row">
-                        <div class="col-md-8">
-                          <!-- <div class="card"> -->
-                            <!-- {{resp}}
-                          </div>
+                        <div class="col-md-10">
+                          {% for post in posts %}
                           <div class="card">
-                              {{me}}
-                            </div> -->
-                          <div class="card">
-                          {% for page in pages %}
-                          <div class="card-header">
-                          <h3>{{page.name}}</h3>
-                          <span>{{page.category}}</span>
-                        </div>
-                        <div class="card-body">
-                          {% for task in page.tasks%}
-                            <span><strong>Tasks: </strong>{{task}}</span>
-                          {% endfor %}
-                          <span><strong> Page ID: </strong>{{page.id}}</span>
-                          <br>
-                          <span><strong> Page Access Token: </strong>{{page.access_token}}</span>
-                        </div>
-                        <div class="col-md-7">
-                            <a class="btn btn-info btn-block alert-info" href="{% url 'clients:single-page' page.name page.access_token page.id %}">Connect this page</a>
+                            <div class="card-body">
+                              {% for action in post.actions %}
+                                {% ifchanged action.link %}
+                                  <div class="fb-post" data-href="{{action.link}}" data-show-text="true" data-width=""></div>
+                                {% endifchanged %}
+                              {% endfor %}
+                            </div>
                           </div>
                           {% endfor %}
-                        </div>
                         </div>
                       </div>
                     </div>

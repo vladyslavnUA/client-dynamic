@@ -12,4 +12,5 @@ urlpatterns = [
     path('clientele/', views.ClienteleView.as_view(), name='clientele'),
     path('clientele/new', views.ClientCreateView.as_view(), name="new-client"),
     path('pages/', views.PagesView.as_view(), name="select-page"),
+    path('pages/<str:page_name>/<str:token>/<int:page_id>', views.SinglePageView.as_view(), name="single-page"),
 ]
