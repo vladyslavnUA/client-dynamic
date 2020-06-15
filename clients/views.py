@@ -27,9 +27,127 @@ class IndexView(ListView):
 
         
 class DashboardView(ListView):
-    def get(self, request):
-        user = User.objects.get(pk=request.user.id)
-        return render(request, "clients/dashboard.html")
+
+    def get_page_impressions_monthly(self, graph, page_id):
+        page_impressions = graph.get_connections(id=page_id,
+                                         connection_name='insights',
+                                         metric='page_impressions',
+                                         date_preset='this_year',
+                                         period='month',
+                                         show_description_from_api_doc=True)
+
+        fb_impressions = page_impressions['data'][0]['values']
+
+        fb_impressions_nums = []
+
+        temp = None
+        sum = 0
+
+        for impression in fb_impressions:
+            datee = parser.parse(impression['end_time'])
+
+            if temp is None:
+                temp = datee.month
+
+            if datee.month == temp:
+                sum += impression['value']
+                # print('We are in month {}'.format(temp))
+            else:
+                fb_impressions_nums.append(sum)
+                sum = 0
+                # print('NEXT MONTH {}'.format(datee.month))
+            
+            temp = datee.month
+
+        
+        while len(fb_impressions_nums) < 12:
+            fb_impressions_nums.append(0)
+
+        return fb_impressions_nums
+
+    def get_page_likes_monthly(self, graph, page_id):
+        page_likes = graph.get_connections(id=page_id,
+                                         connection_name='insights',
+                                         metric='page_positive_feedback_by_type',
+                                         date_preset='this_year',
+                                         period='day',
+                                         show_description_from_api_doc=True)
+
+        fb_likes = page_likes['data'][0]['values']
+
+        fb_likes_nums = []
+
+        temp = None
+        sum = 0
+
+        for like in fb_likes:
+            datee = parser.parse(like['end_time'])
+
+            if temp is None:
+                temp = datee.month
+
+            if datee.month == temp:
+
+                sum += 1
+                # print('We are in month {}'.format(temp))
+            else:
+                fb_likes_nums.append(sum)
+                sum = 0
+                # print('NEXT MONTH {}'.format(datee.month))
+            
+            temp = datee.month
+
+        
+        while len(fb_likes_nums) < 12:
+            fb_likes_nums.append(0)
+
+        return fb_likes_nums
+
+    def get_page_clicks_monthly(self, graph, page_id):
+        page_clicks = graph.get_connections(id=page_id,
+                                         connection_name='insights',
+                                         metric='page_total_actions',
+                                         date_preset='this_year',
+                                         period='day',
+                                         show_description_from_api_doc=True)
+
+        fb_clicks = page_clicks['data'][0]['values']
+        fb_clicks_nums = []
+        temp = None
+        sum = 0
+        for click in fb_clicks:
+            datee = parser.parse(click['end_time'])
+
+            if temp is None:
+                temp = datee.month
+            if datee.month == temp:
+                sum += 1
+            else:
+                fb_clicks_nums.append(sum)
+                sum = 0
+            
+            temp = datee.month
+
+        while len(fb_clicks_nums) < 12:
+            fb_clicks_nums.append(0)
+
+        return fb_clicks_nums
+
+    def get(self, request, page_token, page_id):
+
+        # user = User.objects.get(pk=request.user.id)
+
+        graph = facebook.GraphAPI(page_token)
+
+
+        fb_impressions = self.get_page_impressions_monthly(graph, page_id)
+        fb_likes = self.get_page_likes_monthly(graph, page_id)
+        fb_clicks = self.get_page_clicks_monthly(graph, page_id)
+
+        print(fb_clicks)
+
+        context = {"fb_impressions": fb_impressions, "fb_likes": fb_likes, "fb_clicks": fb_clicks}
+        return render(request, "clients/dashboard.html", context)
 
 class ClienteleView(ListView):
     def get(self, request):
@@ -76,9 +194,7 @@ class SinglePageView(ListView):
         graph = facebook.GraphAPI(token)
         posts = graph.get_object('{}/posts'.format(page_id), fields='id, message, actions')
 
-        context = {'posts':  posts['data'], 'page_id': page_id, 'page_name': page_name }
- 
-
+        context = {'posts':  posts['data'], 'page_id': page_id, 'page_name': page_name, 'page_token': token}
 
         return render(request, "clients/single-page.html", context)
 
