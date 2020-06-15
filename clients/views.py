@@ -32,7 +32,7 @@ class DashboardView(ListView):
         page_impressions = graph.get_connections(id=page_id,
                                          connection_name='insights',
                                          metric='page_impressions',
-                                         date_preset='this_year',
+                                         date_preset='last_year',
                                          period='month',
                                          show_description_from_api_doc=True)
 
