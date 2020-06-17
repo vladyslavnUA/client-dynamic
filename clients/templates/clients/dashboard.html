@@ -135,8 +135,8 @@
           <div class="col-lg-4">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">Facebook</h5>
-                <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
+                <h5 class="card-category">Post Engagment</h5>
+                <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> {{total_page_engagments}}</h3>
               </div>
               <div class="card-body">
                 <div class="chart-area">
@@ -161,8 +161,8 @@
           <div class="col-lg-4">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">Instagram</h5>
-                <h3 class="card-title"><i class="tim-icons icon-send text-success"></i> 12,100</h3>
+                <h5 class="card-category">Total CTA</h5>
+                <h3 class="card-title"><i class="tim-icons icon-send text-success"></i>{{total_cta}}</h3>
               </div>
               <div class="card-body">
                 <div class="chart-area">
@@ -349,10 +349,17 @@
                         </th>
                       </tr>
                     </thead>
+
                     <tbody>
+                      {% for post in posts %}
                       <tr>
                         <td>
-                          Dakota Rice
+                          {{post}}
+                            {% for action in post.actions %}
+                            {% ifchanged action.link %}
+                              <div class="fb-post" data-href="{{action.link}}" data-show-text="true" data-width=""></div>
+                            {% endifchanged %}
+                          {% endfor %}
                         </td>
                         <td>
                           Facebook
@@ -364,90 +371,8 @@
                           6,738
                         </td>
                       </tr>
-                      <tr>
-                        <td>
-                          Minerva Hooper
-                        </td>
-                        <td>
-                          Twitter
-                        </td>
-                        <td>
-                          102,234
-                        </td>
-                        <td class="text-center">
-                          23,789
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Sage Rodriguez
-                        </td>
-                        <td>
-                          Netherlands
-                        </td>
-                        <td>
-                          Baileux
-                        </td>
-                        <td class="text-center">
-                          $56,142
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Philip Chaney
-                        </td>
-                        <td>
-                          Korea, South
-                        </td>
-                        <td>
-                          Overland Park
-                        </td>
-                        <td class="text-center">
-                          $38,735
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Doris Greene
-                        </td>
-                        <td>
-                          Malawi
-                        </td>
-                        <td>
-                          Feldkirchen in Kärnten
-                        </td>
-                        <td class="text-center">
-                          $63,542
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Mason Porter
-                        </td>
-                        <td>
-                          Chile
-                        </td>
-                        <td>
-                          Gloucester
-                        </td>
-                        <td class="text-center">
-                          $78,615
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Jon Porter
-                        </td>
-                        <td>
-                          Portugal
-                        </td>
-                        <td>
-                          Gloucester
-                        </td>
-                        <td class="text-center">
-                          $98,615
-                        </td>
-                      </tr>
+                      {% endfor %}
+
                     </tbody>
                   </table>
                 </div>
@@ -481,7 +406,7 @@
 
       // set_char_variables(0, chart_data, 0)
 
-      demo.initDashboardPageCharts({{fb_p_eng_users}}, {{fb_page_reach}}, {{fb_page_impressions}})
+      demo.initDashboardPageCharts({{fb_p_eng_users}}, {{fb_page_reach}}, {{fb_page_impressions}}, {{fb_page_engagments}}, {{fb_total_cta}})
 
     });
 

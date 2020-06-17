@@ -108,7 +108,7 @@ class DashboardView(ListView):
         page_clicks = graph.get_connections(id=page_id,
                                          connection_name='insights',
                                          metric='page_total_actions',
-                                         date_preset='this_year',
+                                         date_preset='last_year',
                                          period='day',
                                          show_description_from_api_doc=True)
 
@@ -118,7 +118,6 @@ class DashboardView(ListView):
         sum = 0
         for click in fb_clicks:
             datee = parser.parse(click['end_time'])
-
             if temp is None:
                 temp = datee.month
             if datee.month == temp:
@@ -246,6 +245,13 @@ class DashboardView(ListView):
             fb_referrals_nums.append(0)
         return fb_referrals_nums
 
+    # returns sum of an array
+    def get_total(self, data):
+        sum = 0
+        for i in data:
+            sum += i
+        return sum
+
 
     def get(self, request, page_token, page_id):
 
@@ -254,11 +260,18 @@ class DashboardView(ListView):
         fb_page_engaged_users = self.get_page_engagements(graph, page_id)
         fb_page_reach = self.get_page_reach(graph, page_id)
         fb_page_impressions = self.get_page_impressions_monthly(graph, page_id)
+        fb_page_engagments = self.get_page_impressions_monthly(graph, page_id)
+        fb_total_cta = self.get_page_clicks_monthly(graph, page_id)
 
-        print(self.get_page_referrals(graph, page_id))
+        posts = graph.get_object('me/posts', fields="about, story, message, actions")
+
+        print(posts["data"][0])
 
 
-        context = {"fb_p_eng_users": fb_page_engaged_users, "fb_page_reach": fb_page_reach, "fb_page_impressions": fb_page_impressions}
+        context = {"fb_p_eng_users": fb_page_engaged_users, "fb_page_reach": fb_page_reach, 
+                    "fb_page_impressions": fb_page_impressions, "fb_page_engagments": fb_page_engagments, 
+                    "total_page_engagments": self.get_total(fb_page_engagments), "fb_total_cta": fb_total_cta,
+                    "total_cta": self.get_total(fb_total_cta), 'posts': posts['data']}
         return render(request, "clients/dashboard.html", context)
 
 class ClienteleView(ListView):
