@@ -93,28 +93,28 @@
               <div class="card-header ">
                 <div class="row">
                   <div class="col-sm-6 text-left">
-                    <h5 class="card-category">Total Clicks</h5>
+                    <h5 class="card-category"> [page_name here] Insights</h5>
                     <h2 class="card-title">Performance</h2>
                   </div>
                   <div class="col-sm-6">
                     <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
                       <label class="btn btn-sm btn-primary btn-simple active" id="0">
                         <input type="radio" name="options" checked>
-                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Clicks</span>
+                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Engagment</span>
                         <span class="d-block d-sm-none">
                           <i class="tim-icons icon-single-02"></i>
                         </span>
                       </label>
                       <label class="btn btn-sm btn-primary btn-simple" id="1">
                         <input type="radio" class="d-none d-sm-none" name="options">
-                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Views</span>
+                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Reach</span>
                         <span class="d-block d-sm-none">
                           <i class="tim-icons icon-gift-2"></i>
                         </span>
                       </label>
                       <label class="btn btn-sm btn-primary btn-simple" id="2">
                         <input type="radio" class="d-none" name="options">
-                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Likes</span>
+                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Impression</span>
                         <span class="d-block d-sm-none">
                           <i class="tim-icons icon-tap-02"></i>
                         </span>
@@ -481,7 +481,7 @@
 
       // set_char_variables(0, chart_data, 0)
 
-      demo.initDashboardPageCharts({{fb_clicks}}, {{fb_impressions}}, {{fb_likes}})
+      demo.initDashboardPageCharts({{fb_p_eng_users}}, {{fb_page_reach}}, {{fb_page_impressions}})
 
     });
 

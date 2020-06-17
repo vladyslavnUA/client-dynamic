@@ -32,7 +32,7 @@ class DashboardView(ListView):
         page_impressions = graph.get_connections(id=page_id,
                                          connection_name='insights',
                                          metric='page_impressions',
-                                         date_preset='last_year',
+                                         date_preset='this_year',
                                          period='month',
                                          show_description_from_api_doc=True)
 
@@ -134,15 +134,15 @@ class DashboardView(ListView):
 
         return fb_clicks_nums
 
-    def get_page_engagements(self, graph, page_id):
+    def get_page_post_engagements(self, graph, page_id):
         page_engagements = graph.get_connections(id=page_id,
                                          connection_name='insights',
                                          metric='page_post_engagements',
                                          date_preset='this_year',
-                                         period='day',
+                                         period='month',
                                          show_description_from_api_doc=True)
 
-        fb_engagements = page_clicks['data'][0]['values']
+        fb_engagements = page_engagements['data'][0]['values']
         fb_engagements_nums = []
         temp = None
         sum = 0
@@ -164,19 +164,101 @@ class DashboardView(ListView):
 
         return fb_engagements_nums
 
-    def get(self, request, page_token, page_id):
+    def get_page_engagements(self, graph, page_id):
+        page_engaged_users = graph.get_connections(id=page_id,
+                                         connection_name='insights',
+                                         metric='page_engaged_users',
+                                         date_preset='this_year',
+                                         period='day',
+                                         show_description_from_api_doc=True)
+        fb_engaged_users = page_engaged_users['data'][0]['values']
+        fb_engagements_nums = []
+        temp = None
+        sum = 0
+        for eng in fb_engaged_users:
+            datee = parser.parse(eng['end_time'])
+            if temp is None:
+                temp = datee.month
+            if datee.month == temp:
+                sum += eng['value']
+            else:
+                fb_engagements_nums.append(sum)
+                sum = 0
+            temp = datee.month
+        while len(fb_engagements_nums) < 12:
+            fb_engagements_nums.append(0)
+        return fb_engagements_nums
 
-        # user = User.objects.get(pk=request.user.id)
+    def get_page_reach(self, graph, page_id):
+        page_engaged_users = graph.get_connections(id=page_id,
+                                        connection_name='insights',
+                                        metric='page_impressions_frequency_distribution',
+                                        date_preset='this_year',
+                                        period='day',
+                                        show_description_from_api_doc=True)
+        fb_engaged_users = page_engaged_users['data'][0]['values']
+        fb_engagements_nums = []
+        temp = None
+        sum = 0
+        for eng in fb_engaged_users:
+            # print(eng)
+            datee = parser.parse(eng['end_time'])
+            if temp is None:
+                temp = datee.month
+            if datee.month == temp:
+                for k,v in eng['value'].items():
+                    sum += v
+            else:
+                fb_engagements_nums.append(sum)
+                sum = 0
+            temp = datee.month
+        while len(fb_engagements_nums) < 12:
+            fb_engagements_nums.append(0)
+        return fb_engagements_nums
+    
+    def get_page_referrals(self, graph, page_id):
+        page_referrals = graph.get_connections(id=page_id,
+                                        connection_name='insights',
+                                        metric='page_fans_by_like_source_unique',
+                                        date_preset='last_year',
+                                        period='day',
+                                        show_description_from_api_doc=True)
+        fb_referrals = page_referrals['data'][0]['values']
+        
+        fb_referrals_nums = []
+        temp = None
+        sum = 0
+        for eng in fb_referrals:
+
+            print(eng)
+            # print(eng)
+            datee = parser.parse(eng['end_time'])
+            if temp is None:
+                temp = datee.month
+            if datee.month == temp:
+                for k,v in eng['value'].items():
+                    sum += v
+            else:
+                fb_referrals_nums.append(sum)
+                sum = 0
+            temp = datee.month
+        while len(fb_referrals_nums) < 12:
+            fb_referrals_nums.append(0)
+        return fb_referrals_nums
+
+
+    def get(self, request, page_token, page_id):
 
         graph = facebook.GraphAPI(page_token)
 
+        fb_page_engaged_users = self.get_page_engagements(graph, page_id)
+        fb_page_reach = self.get_page_reach(graph, page_id)
+        fb_page_impressions = self.get_page_impressions_monthly(graph, page_id)
 
-        fb_impressions = self.get_page_impressions_monthly(graph, page_id)
-        fb_likes = self.get_page_likes_monthly(graph, page_id)
-        fb_clicks = self.get_page_clicks_monthly(graph, page_id)
+        print(self.get_page_referrals(graph, page_id))
 
 
-        context = {"fb_impressions": fb_impressions, "fb_likes": fb_likes, "fb_clicks": fb_clicks}
+        context = {"fb_p_eng_users": fb_page_engaged_users, "fb_page_reach": fb_page_reach, "fb_page_impressions": fb_page_impressions}
         return render(request, "clients/dashboard.html", context)
 
 class ClienteleView(ListView):
