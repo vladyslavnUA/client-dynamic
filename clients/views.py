@@ -51,11 +51,9 @@ class DashboardView(ListView):
 
             if datee.month == temp:
                 sum += impression['value']
-                # print('We are in month {}'.format(temp))
             else:
                 fb_impressions_nums.append(sum)
                 sum = 0
-                # print('NEXT MONTH {}'.format(datee.month))
             
             temp = datee.month
 
@@ -89,6 +87,9 @@ class DashboardView(ListView):
             if datee.month == temp:
 
                 sum += 1
+                print(like['value'])
+
+
                 # print('We are in month {}'.format(temp))
             else:
                 fb_likes_nums.append(sum)
@@ -121,7 +122,7 @@ class DashboardView(ListView):
             if temp is None:
                 temp = datee.month
             if datee.month == temp:
-                sum += 1
+                sum += click['value']
             else:
                 fb_clicks_nums.append(sum)
                 sum = 0
@@ -144,7 +145,6 @@ class DashboardView(ListView):
         fb_likes = self.get_page_likes_monthly(graph, page_id)
         fb_clicks = self.get_page_clicks_monthly(graph, page_id)
 
-        print(fb_clicks)
 
         context = {"fb_impressions": fb_impressions, "fb_likes": fb_likes, "fb_clicks": fb_clicks}
         return render(request, "clients/dashboard.html", context)
@@ -171,18 +171,15 @@ class PagesView(ListView):
         token = social_user.extra_data['access_token']
 
         graph = facebook.GraphAPI(token)
-        data = graph.get_object('me', fields='first_name, location, link, email, posts')
+        data = graph.get_object('me', fields='first_name, location, link, email, posts, picture')
 
-        resp = graph.get_object('me/accounts')
+        pages_data = graph.get_object('me/accounts', fields='overall_star_rating,name,about,access_token,description,cover,picture')        
 
-        print(graph.get_object('me/permissions'))
-
-        context = {'pages':  resp["data"], 'resp': resp, 'me': data}
+        context = {'pages':  pages_data["data"]}
 
 
 
         return render(request, "clients/pages.html", context)
-
 
 class SinglePageView(ListView):
 
@@ -197,7 +194,6 @@ class SinglePageView(ListView):
         context = {'posts':  posts['data'], 'page_id': page_id, 'page_name': page_name, 'page_token': token}
 
         return render(request, "clients/single-page.html", context)
-
 
 class UserProfileView(ListView):
     def get(self, request):

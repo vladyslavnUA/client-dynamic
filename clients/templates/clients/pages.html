@@ -109,15 +109,14 @@
                               {{me}}
                             </div> -->
                           <div class="card">
+                            
                           {% for page in pages %}
                           <div class="card-header">
-                          <h3>{{page.name}}</h3>
-                          <span>{{page.category}}</span>
+                          <h3><img src="{{page.picture.data.url}}" alt=""> {{page.name}}</h3>
                         </div>
                         <div class="card-body">
-                          {% for task in page.tasks%}
-                            <span><strong>Tasks: </strong>{{task}}</span>
-                          {% endfor %}
+                          <span>{{page.about}}</span>
+
                           <span><strong> Page ID: </strong>{{page.id}}</span>
                           <br>
                           <span><strong> Page Access Token: </strong>{{page.access_token}}</span>
