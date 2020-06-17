@@ -99,7 +99,7 @@ demo = {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: clicks_data
+          data: fb_p_eng_users
         }]
       },
       options: gradientChartOptionsConfiguration
@@ -107,7 +107,7 @@ demo = {
   },
 
 
-  initDashboardPageCharts: function(clicks_data, views_data, likes_data ) {
+  initDashboardPageCharts: function(fb_p_eng_users, fb_page_reach, fb_page_impressions, fb_page_engagments, fb_total_cta ) {
 
     gradientChartOptionsConfigurationWithTooltipBlue = {
       maintainAspectRatio: false,
@@ -375,7 +375,7 @@ demo = {
         pointHoverRadius: 4,
         pointHoverBorderWidth: 15,
         pointRadius: 4,
-        data: [80, 100, 70, 80, 120, 80],
+        data: fb_page_engagments,
       }]
     };
 
@@ -411,7 +411,7 @@ demo = {
         pointHoverRadius: 4,
         pointHoverBorderWidth: 15,
         pointRadius: 4,
-        data: [90, 27, 60, 12, 80],
+        data: fb_total_cta,
       }]
     };
 
@@ -454,7 +454,7 @@ demo = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: clicks_data,
+          data: fb_p_eng_users,
         }]
       },
       options: gradientChartOptionsConfigurationWithTooltipPurple
@@ -470,14 +470,14 @@ demo = {
 
     $("#0").click(function() {
       var data = myChartData.config.data;
-      data.datasets[0].data = clicks_data;
+      data.datasets[0].data = fb_p_eng_users;
       data.labels = chart_labels;
       myChartData.update();
     });
     $("#1").click(function() {
       // var chart_data = [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120];
       var data = myChartData.config.data;
-      data.datasets[0].data = views_data;
+      data.datasets[0].data = fb_page_reach;
       data.labels = chart_labels;
       myChartData.update();
     });
@@ -485,7 +485,7 @@ demo = {
     $("#2").click(function() {
       // var chart_data = [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130];
       var data = myChartData.config.data;
-      data.datasets[0].data = likes_data;
+      data.datasets[0].data = fb_page_impressions;
       data.labels = chart_labels;
       myChartData.update();
     });
