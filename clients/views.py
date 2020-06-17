@@ -263,7 +263,7 @@ class DashboardView(ListView):
         fb_page_engaged_users = self.get_page_engagements(graph, page_id)
         fb_page_reach = self.get_page_reach(graph, page_id)
         fb_page_impressions = self.get_page_impressions_monthly(graph, page_id)
-        fb_page_engagments = self.get_page_impressions_monthly(graph, page_id)
+        fb_page_engagments = self.get_page_post_engagements(graph, page_id)
         fb_total_cta = self.get_page_clicks_monthly(graph, page_id)
 
         print(fb_page_engagments)

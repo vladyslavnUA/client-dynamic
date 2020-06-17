@@ -21,10 +21,10 @@ constantly==15.1.0
 crypto==1.4.1
 cryptography==2.9.2
 cssselect==1.1.0
-Django==3.0.2
+Django==3.0.7
 djangorestframework==3.11.0
 dominate==2.4.0
-Flask==0.12.2
+Flask==1.0.0
 Flask-Bootstrap==3.3.7.1
 Flask-Cors==3.0.8
 Flask-DebugToolbar==0.11.0
@@ -47,7 +47,7 @@ googleapis-common-protos==1.6.0
 grpcio==1.25.0
 gunicorn==19.9.0
 html5lib==1.0.1
-httplib2==0.14.0
+httplib2==0.18.0
 hyperlink==19.0.0
 idna==2.6
 importlib-metadata==1.2.0
@@ -66,7 +66,7 @@ numpy==1.17.2
 p5==0.6.0
 packaging==19.2
 parsel==1.6.0
-Pillow==6.2.0
+Pillow==6.2.2
 pipenv==2018.11.26
 pluggy==0.13.1
 Protego==0.1.16
@@ -75,12 +75,12 @@ py==1.8.0
 pyasn1==0.4.7
 pyasn1-modules==0.2.6
 pycparser==2.20
-pycryptodome==3.4.3
+pycryptodome==3.6.6
 PyDispatcher==2.0.5
 pyfiglet==0.8.post1
 pygame==1.9.6
 PyHamcrest==2.0.2
-PyInstaller==3.5
+PyInstaller==3.6
 PyJWT==1.7.1
 pymongo==3.9.0
 pyOpenSSL==19.1.0
@@ -96,7 +96,7 @@ pytube==9.5.3
 pytz==2019.3
 PyYAML==5.1.2
 queuelib==1.5.0
-requests==2.18.4
+requests==2.20.0
 rsa==4.0
 Scrapy==2.1.0
 selenium==3.141.0
@@ -115,7 +115,7 @@ triangle==20190115.3
 twilio==6.35.1
 Twisted==20.3.0
 uritemplate==3.0.0
-urllib3==1.22
+urllib3==1.24.22.20.0
 virtualenv==16.7.5
 virtualenv-clone==0.5.3
 visitor==0.1.3

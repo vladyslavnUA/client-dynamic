@@ -13,9 +13,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # FACEBOOK API KEYS
-SOCIAL_AUTH_FACEBOOK_KEY = '1476435592528450'
+SOCIAL_AUTH_FACEBOOK_KEY = str(os.getenv('SOCIAL_AUTH_FACEBOOK_KEY'))
+# '1476435592528450' # App ID
 # str(os.getenv('SOCIAL_AUTH_FACEBOOK_KEY'))  # FB App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = '2841928cca8f0223617ee501039ac7b1'
+
+SOCIAL_AUTH_FACEBOOK_SECRET = str(os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET'))
+# '2841928cca8f0223617ee501039ac7b1' # FB App Secret
 
 # SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'pages_show_list']
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['manage_pages', 'pages_manage_cta','pages_manage_instant_articles','pages_show_list','publish_pages']
