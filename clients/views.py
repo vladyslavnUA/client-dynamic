@@ -103,7 +103,7 @@ class DashboardView(ListView):
             fb_likes_nums.append(0)
 
         return fb_likes_nums
-
+    
     def get_page_clicks_monthly(self, graph, page_id):
         page_clicks = graph.get_connections(id=page_id,
                                          connection_name='insights',
@@ -133,6 +133,36 @@ class DashboardView(ListView):
             fb_clicks_nums.append(0)
 
         return fb_clicks_nums
+
+    def get_page_engagements(self, graph, page_id):
+        page_engagements = graph.get_connections(id=page_id,
+                                         connection_name='insights',
+                                         metric='page_post_engagements',
+                                         date_preset='this_year',
+                                         period='day',
+                                         show_description_from_api_doc=True)
+
+        fb_engagements = page_clicks['data'][0]['values']
+        fb_engagements_nums = []
+        temp = None
+        sum = 0
+        for eng in fb_engagements:
+            datee = parser.parse(eng['end_time'])
+
+            if temp is None:
+                temp = datee.month
+            if datee.month == temp:
+                sum += eng['value']
+            else:
+                fb_engagements_nums.append(sum)
+                sum = 0
+            
+            temp = datee.month
+
+        while len(fb_engagements_nums) < 12:
+            fb_engagements_nums.append(0)
+
+        return fb_engagements_nums
 
     def get(self, request, page_token, page_id):
 
