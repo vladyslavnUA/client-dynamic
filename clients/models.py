@@ -5,9 +5,11 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    company = models.CharField(max_length=30, blank=True)
-    bio = models.CharField(max_length=30, blank=True)
-    role = models.CharField(max_length=30, blank=True)
+    company = models.CharField(max_length=100, blank=True)
+    bio = models.CharField(max_length=3000, blank=True)
+    role = models.CharField(max_length=100, blank=True)
+    fb_page_id = models.CharField(max_length=200, blank=True)
+    fb_page_token = models.CharField(max_length=30000, blank=True)
 
     def __str__(self):  # __unicode__ for Python 2
         return self.user.username

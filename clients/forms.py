@@ -11,3 +11,5 @@ class ClientForm(forms.ModelForm):
             'email': forms.TextInput(attrs={'placeholder': 'Enter your email'}),
             'address': forms.TextInput(attrs={'placeholder': '###-###-####'}),
         }
+
+        

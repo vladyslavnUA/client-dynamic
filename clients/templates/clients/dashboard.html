@@ -93,7 +93,7 @@
               <div class="card-header ">
                 <div class="row">
                   <div class="col-sm-6 text-left">
-                    <h5 class="card-category"> [page_name here] Insights</h5>
+                    <h5 class="card-category"> {{page.name}} Insights</h5>
                     <h2 class="card-title">Performance</h2>
                   </div>
                   <div class="col-sm-6">
@@ -325,24 +325,30 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-6 col-md-12">
+          <div class="col-12">
             <div class="card ">
               <div class="card-header">
-                <h4 class="card-title"> Simple Table</h4>
+                <h4 class="card-title"> Posts</h4>
               </div>
               <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table tablesorter " id="">
+                <div class="table-full-width table-responsive">
+                  <table class="table " id="">
                     <thead class=" text-primary">
                       <tr>
                         <th>
-                          Post Name
+                            Created Time
                         </th>
                         <th>
-                          Channel
+                          Story
                         </th>
                         <th>
-                          Views
+                          Message
+                        </th>
+                        <th>
+                          Shares
+                        </th>
+                        <th>
+                            Comments
                         </th>
                         <th class="text-center">
                           Likes
@@ -351,24 +357,35 @@
                     </thead>
 
                     <tbody>
+
                       {% for post in posts %}
+
                       <tr>
                         <td>
-                          {{post}}
-                            {% for action in post.actions %}
-                            {% ifchanged action.link %}
-                              <div class="fb-post" data-href="{{action.link}}" data-show-text="true" data-width=""></div>
-                            {% endifchanged %}
-                          {% endfor %}
+                          {{post.created_time|date:"M d, Y"}}
                         </td>
                         <td>
-                          Facebook
+                            {{post.story}}
                         </td>
                         <td>
-                          10,430
+                            {{post.message}}
                         </td>
+                        
+                        <td>
+                          {% if post.shares.count %}
+                          {{post.shares.count}}
+                          {% else %}
+                          0
+                          {% endif %}
+                        </td>
+
+                        <td>
+                            {{ post.comments.data|length }}
+                        </td>
+
                         <td class="text-center">
-                          6,738
+                          <a href="{{post.permalink_url}}" target="_blank">View</a>
+                          
                         </td>
                       </tr>
                       {% endfor %}

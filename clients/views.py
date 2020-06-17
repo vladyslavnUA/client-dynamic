@@ -33,7 +33,7 @@ class DashboardView(ListView):
                                          connection_name='insights',
                                          metric='page_impressions',
                                          date_preset='this_year',
-                                         period='month',
+                                         period='day',
                                          show_description_from_api_doc=True)
 
         fb_impressions = page_impressions['data'][0]['values']
@@ -138,7 +138,7 @@ class DashboardView(ListView):
                                          connection_name='insights',
                                          metric='page_post_engagements',
                                          date_preset='this_year',
-                                         period='month',
+                                         period='day',
                                          show_description_from_api_doc=True)
 
         fb_engagements = page_engagements['data'][0]['values']
@@ -219,7 +219,7 @@ class DashboardView(ListView):
         page_referrals = graph.get_connections(id=page_id,
                                         connection_name='insights',
                                         metric='page_fans_by_like_source_unique',
-                                        date_preset='last_year',
+                                        date_preset='this_year',
                                         period='day',
                                         show_description_from_api_doc=True)
         fb_referrals = page_referrals['data'][0]['values']
@@ -257,18 +257,25 @@ class DashboardView(ListView):
 
         graph = facebook.GraphAPI(page_token)
 
+        data = graph.get_object('me')
+
+
         fb_page_engaged_users = self.get_page_engagements(graph, page_id)
         fb_page_reach = self.get_page_reach(graph, page_id)
         fb_page_impressions = self.get_page_impressions_monthly(graph, page_id)
         fb_page_engagments = self.get_page_impressions_monthly(graph, page_id)
         fb_total_cta = self.get_page_clicks_monthly(graph, page_id)
 
-        posts = graph.get_object('me/posts', fields="about, story, message, actions")
+        print(fb_page_engagments)
 
-        print(posts["data"][0])
+        posts = graph.get_object('me/posts', fields="about, story, message, created_time, shares, comments, permalink_url")
 
+        for post in posts['data']:
+            post['created_time'] = parser.parse(post['created_time'])
 
-        context = {"fb_p_eng_users": fb_page_engaged_users, "fb_page_reach": fb_page_reach, 
+        print(data)
+
+        context = {'page': data, "fb_p_eng_users": fb_page_engaged_users, "fb_page_reach": fb_page_reach, 
                     "fb_page_impressions": fb_page_impressions, "fb_page_engagments": fb_page_engagments, 
                     "total_page_engagments": self.get_total(fb_page_engagments), "fb_total_cta": fb_total_cta,
                     "total_cta": self.get_total(fb_total_cta), 'posts': posts['data']}
@@ -295,6 +302,9 @@ class PagesView(ListView):
         social_user = user.social_auth.get(provider="facebook")
         token = social_user.extra_data['access_token']
 
+        if user.profile.fb_page_id != '' and user.profile.fb_page_token != '':
+            return HttpResponseRedirect(reverse('clients:dashboard', kwargs={'page_token': user.profile.fb_page_token, 'page_id':user.profile.fb_page_id }))
+
         graph = facebook.GraphAPI(token)
         data = graph.get_object('me', fields='first_name, location, link, email, posts, picture')
 
@@ -312,6 +322,8 @@ class SinglePageView(ListView):
 
         user = User.objects.get(pk=request.user.id)
         user = user.social_auth.get(provider="facebook")
+
+
 
         graph = facebook.GraphAPI(token)
         posts = graph.get_object('{}/posts'.format(page_id), fields='id, message, actions')
@@ -390,6 +402,7 @@ class ClientUpdateView(UpdateView):
         return (user.is_authenticated is True)
 
 class ClientDeleteView(DeleteView):
+
     model = Client
     # template_name = 'codes/crud/delete.html'
     success_url = reverse_lazy('clients:clientele')
@@ -411,3 +424,14 @@ class ClientDeleteView(DeleteView):
         self.object = self.get_object()
         self.object.save()
         return HttpResponseRedirect(success_url)
+
+def SaveFbPageView(req, page_token, page_id):
+    user = User.objects.get(pk=req.user.id)
+
+
+    user.profile.fb_page_id = page_id
+    user.profile.fb_page_token = page_token
+
+    user.save()
+
+    return HttpResponseRedirect(reverse('clients:dashboard', kwargs={'page_token': page_token, 'page_id':page_id }))
