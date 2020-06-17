@@ -175,7 +175,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-6 col-md-12">
+          <!-- <div class="col-lg-6 col-md-12">
             <div class="card card-tasks">
               <div class="card-header ">
                 <h6 class="title d-inline">Tasks(5)</h6>
@@ -326,27 +326,23 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="col-12">
             <div class="card ">
               <div class="card-header">
                 <h4 class="card-title"> Posts</h4>
               </div>
               <div class="card-body">
-                <!-- <div class="table-responsive"> -->
-                    <div class="container">
-                        <div class="row justify-content-center">
-                          {% for post in posts %}
-                          
+                  <div class="container">
+                      <div class="row">
+                      {% for post in posts %}
                             <div class="col">
-                                <div class="card mb-5 justify-content-center">
-                                  <div class="fb-post" data-href="{{post.permalink_url}}" data-show-text="true" data-width="100%"></div>
-                              </div>
+                              <div class="fb-post" data-href="{{post.permalink_url}}" data-show-text="true" data-width="100%"></div>
                             </div>
-                          {% endfor %}
-                        </div>
+                        {% endfor %}
                       </div>
-                <!-- </div> -->
+                    </div>
+                </div>
               </div>
             </div>
           </div>
