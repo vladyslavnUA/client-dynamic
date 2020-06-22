@@ -330,15 +330,19 @@
           <div class="col-12">
             <div class="card ">
               <div class="card-header">
-                <h4 class="card-title"> Posts</h4>
+                <h4 class="card-title"> {{page.name}} Posts</h4>
               </div>
               <div class="card-body">
                   <div class="container">
                       <div class="row">
                       {% for post in posts %}
-                            <div class="col">
-                              <div class="fb-post" data-href="{{post.permalink_url}}" data-show-text="true" data-width="100%"></div>
+                            <div class="col m-5">
+                              <div class="container">
+                              <div class="row justify-content-center">
+                                <div class="fb-post bg-white" data-href="{{post.permalink_url}}" data-show-text="true" data-width="100%"></div>
+                              </div>
                             </div>
+                          </div>
                         {% endfor %}
                       </div>
                     </div>
