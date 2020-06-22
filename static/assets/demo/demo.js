@@ -1,5 +1,38 @@
 type = ['primary', 'info', 'success', 'warning', 'danger'];
 
+function get_month_abbr(dates) {
+  months = []
+  dates.forEach(date => {
+    if (date == 1) {
+      months.push("Jan")
+    } else if (date == 2) {
+      months.push('Feb')
+    } else if (date == 3) {
+      months.push('Mar')
+    } else if (date == 4) {
+      months.push('Apr')
+    } else if (date == 5) {
+      months.push('May')
+    } else if (date == 6) {
+      months.push('Jun')
+    } else if (date == 7) {
+      months.push('Jul')
+    } else if (date == 8) {
+      months.push('Aug')
+    } else if (date == 9) {
+      months.push('Sep')
+    } else if (date == 10) {
+      months.push('Oct')
+    } else if (date == 11) {
+      months.push('Nov')
+    } else if (date == 12) {
+      months.push('Dec')
+    }
+  });
+  return months
+}
+
+
 demo = {
   initPickColor: function() {
     $('.pick-class-label').click(function() {
@@ -107,7 +140,7 @@ demo = {
   },
 
 
-  initDashboardPageCharts: function(fb_p_eng_users, fb_page_reach, fb_page_impressions, fb_page_engagments, fb_total_cta ) {
+  initDashboardPageCharts: function(fb_p_eng_users, fb_page_reach, fb_page_impressions, fb_page_engagments, fb_total_cta, fb_page_engagments_months, fb_total_cta_months) {
 
     gradientChartOptionsConfigurationWithTooltipBlue = {
       maintainAspectRatio: false,
@@ -359,7 +392,7 @@ demo = {
     gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
 
     var data = {
-      labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+      labels: get_month_abbr(fb_page_engagments_months),
       datasets: [{
         label: "Data",
         fill: true,
@@ -395,7 +428,7 @@ demo = {
     gradientStroke.addColorStop(0, 'rgba(66,134,121,0)'); //green colors
 
     var data = {
-      labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV'],
+      labels: get_month_abbr(fb_total_cta_months),
       datasets: [{
         label: "My First dataset",
         fill: true,
@@ -440,7 +473,7 @@ demo = {
       data: {
         labels: chart_labels,
         datasets: [{
-          label: ["My First dataset"],
+          label: ["User Engagment"],
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: '#d346b1',
@@ -494,6 +527,7 @@ demo = {
 
 
 
+
     var ctx = document.getElementById("CountryChart").getContext("2d");
 
     var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
@@ -527,6 +561,8 @@ demo = {
     });
 
   },
+
+
 
   // initGoogleMaps: function() {
   //   var myLatlng = new google.maps.LatLng(40.748817, -73.985428);

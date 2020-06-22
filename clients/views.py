@@ -108,30 +108,32 @@ class DashboardView(ListView):
         page_clicks = graph.get_connections(id=page_id,
                                          connection_name='insights',
                                          metric='page_total_actions',
-                                         date_preset='last_year',
+                                         date_preset='this_year',
                                          period='day',
                                          show_description_from_api_doc=True)
 
         fb_clicks = page_clicks['data'][0]['values']
         fb_clicks_nums = []
+        fb_clicks_months = []
         temp = None
         sum = 0
         for click in fb_clicks:
             datee = parser.parse(click['end_time'])
             if temp is None:
-                temp = datee.month
-            if datee.month == temp:
+                temp = datee
+            if datee.month == temp.month:
                 sum += click['value']
             else:
                 fb_clicks_nums.append(sum)
+                fb_clicks_months.append(temp.month)
                 sum = 0
             
-            temp = datee.month
+            temp = datee
 
         while len(fb_clicks_nums) < 12:
             fb_clicks_nums.append(0)
 
-        return fb_clicks_nums
+        return fb_clicks_nums, fb_clicks_months
 
     def get_page_post_engagements(self, graph, page_id):
         page_engagements = graph.get_connections(id=page_id,
@@ -143,25 +145,27 @@ class DashboardView(ListView):
 
         fb_engagements = page_engagements['data'][0]['values']
         fb_engagements_nums = []
+        fb_engagements_months = []
         temp = None
         sum = 0
         for eng in fb_engagements:
             datee = parser.parse(eng['end_time'])
 
             if temp is None:
-                temp = datee.month
-            if datee.month == temp:
+                temp = datee
+            if datee.month == temp.month:
                 sum += eng['value']
             else:
                 fb_engagements_nums.append(sum)
+                fb_engagements_months.append(temp.month)
                 sum = 0
             
-            temp = datee.month
+            temp = datee
 
         while len(fb_engagements_nums) < 12:
             fb_engagements_nums.append(0)
 
-        return fb_engagements_nums
+        return fb_engagements_nums, fb_engagements_months
 
     def get_page_engagements(self, graph, page_id):
         page_engaged_users = graph.get_connections(id=page_id,
@@ -174,16 +178,19 @@ class DashboardView(ListView):
         fb_engagements_nums = []
         temp = None
         sum = 0
+        
         for eng in fb_engaged_users:
             datee = parser.parse(eng['end_time'])
             if temp is None:
-                temp = datee.month
-            if datee.month == temp:
+                temp = datee
+            if datee.month == temp.month:
                 sum += eng['value']
             else:
                 fb_engagements_nums.append(sum)
                 sum = 0
-            temp = datee.month
+            temp = datee
+
+
         while len(fb_engagements_nums) < 12:
             fb_engagements_nums.append(0)
         return fb_engagements_nums
@@ -263,10 +270,11 @@ class DashboardView(ListView):
         fb_page_engaged_users = self.get_page_engagements(graph, page_id)
         fb_page_reach = self.get_page_reach(graph, page_id)
         fb_page_impressions = self.get_page_impressions_monthly(graph, page_id)
-        fb_page_engagments = self.get_page_post_engagements(graph, page_id)
-        fb_total_cta = self.get_page_clicks_monthly(graph, page_id)
+        fb_page_engagments, fb_page_engagments_months = self.get_page_post_engagements(graph, page_id)
+        fb_total_cta, fb_total_cta_months = self.get_page_clicks_monthly(graph, page_id)
 
-        print(fb_page_engagments)
+        print(fb_page_engagments_months, "these are months")
+
 
         posts = graph.get_object('me/posts', fields="about, story, message, created_time, shares, comments, permalink_url")
 
@@ -277,7 +285,9 @@ class DashboardView(ListView):
 
         context = {'page': data, "fb_p_eng_users": fb_page_engaged_users, "fb_page_reach": fb_page_reach, 
                     "fb_page_impressions": fb_page_impressions, "fb_page_engagments": fb_page_engagments, 
+                    "fb_page_engagments_months": fb_page_engagments_months, 
                     "total_page_engagments": self.get_total(fb_page_engagments), "fb_total_cta": fb_total_cta,
+                    "fb_total_cta_months": fb_total_cta_months,
                     "total_cta": self.get_total(fb_total_cta), 'posts': posts['data']}
         return render(request, "clients/dashboard.html", context)
 
