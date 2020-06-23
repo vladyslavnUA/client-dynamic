@@ -19,7 +19,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">Notifications</a>
+            <a class="navbar-brand" href="javascript:void(0)">Facebook Pages</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -94,7 +94,7 @@
                     <div class="col-md-6 ml-auto mr-auto text-center">
                       <h4 class="card-title">
                         Select your business page
-                        <p class="category">Click to link</p>
+                        <p class="category">Click to connect page</p>
                       </h4>
                     </div>
                   </div>
@@ -108,24 +108,23 @@
                           <div class="card">
                               {{me}}
                             </div> -->
-                          <div class="card">
+                        
                             
                           {% for page in pages %}
-                          <div class="card-header">
-                          <h3><img src="{{page.picture.data.url}}" alt=""> {{page.name}}</h3>
-                        </div>
-                        <div class="card-body">
-                          <span>{{page.about}}</span>
-
-                          <span><strong> Page ID: </strong>{{page.id}}</span>
-                          <br>
-                          <span><strong> Page Access Token: </strong>{{page.access_token}}</span>
-                        </div>
-                        <div class="col-md-7">
-                            <a class="btn btn-info btn-block alert-info" href="{% url 'clients:save-fb-page' page.access_token page.id %}">Connect this page</a>
+                          <div class="card">
+                            <div class="card-header">
+                              <h3><img src="{{page.picture.data.url}}" alt=""> {{page.name}}</h3>
+                            </div>
+                            <div class="card-body">
+                              <span>{{page.about}}</span>
+                              
+                              <div class="row mt-5">
+                                  <a class="btn btn-success btn-block" href="{% url 'clients:save-fb-page' page.access_token page.id %}">Connect to {{page.name}}</a>
+                              </div>
+                            </div>
                           </div>
+                       
                           {% endfor %}
-                        </div>
                         </div>
                       </div>
                     </div>

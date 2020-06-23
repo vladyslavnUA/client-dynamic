@@ -369,12 +369,13 @@ class SinglePageView(ListView):
 class UserProfileView(ListView):
     def get(self, request):
         user = User.objects.get(pk=request.user.id)
+        social_user = user.social_auth.get(provider="facebook")
 
         name = False
         if user.last_name != "" and user.last_name != "":
             name = str(user.first_name)+" "+str(user.last_name)
 
-        context = {"user": user, "name": name}
+        context = {"user": user, "name": name, "social_user": social_user.extra_data, "picture": social_user.extra_data["picture"]["data"]["url"]}
         
         return render(request, "clients/user.html", context)
 

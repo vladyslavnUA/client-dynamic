@@ -110,7 +110,7 @@
                     <div class="col-md-4 pl-md-1">
                       <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" placeholder="mike@email.com" name="email" value="{{user.email}}">
+                        <input type="email" class="form-control" placeholder="mike@email.com" name="email" value="{{social_user.email}}">
                       </div>
                     </div>
                   </div>
@@ -163,7 +163,7 @@
                     <div class="block block-three"></div>
                     <div class="block block-four"></div>
                     <a href="javascript:void(0)">
-                      <img class="avatar" src="../assets/img/emilyz.jpg" alt="...">
+                      <img class="avatar" src="{{picture}}" alt="{{name}} profile image">
                       <h5 class="title">{% if name %} {{name}} {% else %} {{user.username}} {% endif %}</h5>
                     </a>
                     <p class="description">
@@ -178,14 +178,16 @@
               <div class="card-footer">
                 <div class="button-container">
                   <button href="javascript:void(0)" class="btn btn-icon btn-round btn-facebook">
+                    <a href="{{social_user.profile_url}}" target="_blank">
                     <i class="fab fa-facebook"></i>
+                  </a>
                   </button>
-                  <button href="javascript:void(0)" class="btn btn-icon btn-round btn-twitter">
+                  <!-- <button href="javascript:void(0)" class="btn btn-icon btn-round btn-twitter">
                     <i class="fab fa-twitter"></i>
                   </button>
                   <button href="javascript:void(0)" class="btn btn-icon btn-round btn-google">
                     <i class="fab fa-google-plus"></i>
-                  </button>
+                  </button> -->
                 </div>
               </div>
             </div>
