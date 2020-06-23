@@ -221,6 +221,32 @@ class DashboardView(ListView):
         while len(fb_engagements_nums) < 12:
             fb_engagements_nums.append(0)
         return fb_engagements_nums
+
+    def page_positive_feedback_by_type(self, graph, page_id):
+        page_positive_feedback_by_type = graph.get_connections(id=page_id,
+                                        connection_name='insights',
+                                        metric='page_fans_locale',
+                                        show_description_from_api_doc=True)
+        feedbacks = page_positive_feedback_by_type['data']
+        print(feedbacks)
+        # fb_engagements_nums = []
+        # temp = None
+        # sum = 0
+        # for feed in feedbacks:
+        #     print(feed)
+        #     datee = parser.parse(eng['end_time'])
+        #     if temp is None:
+        #         temp = datee.month
+        #     if datee.month == temp:
+        #         for k,v in eng['value'].items():
+        #             sum += v
+        #     else:
+        #         fb_engagements_nums.append(sum)
+        #         sum = 0
+        #     temp = datee.month
+        # while len(fb_engagements_nums) < 12:
+        #     fb_engagements_nums.append(0)
+        # return fb_engagements_nums
     
     def get_page_referrals(self, graph, page_id):
         page_referrals = graph.get_connections(id=page_id,
@@ -273,15 +299,13 @@ class DashboardView(ListView):
         fb_page_engagments, fb_page_engagments_months = self.get_page_post_engagements(graph, page_id)
         fb_total_cta, fb_total_cta_months = self.get_page_clicks_monthly(graph, page_id)
 
-        print(fb_page_engagments_months, "these are months")
+        self.page_positive_feedback_by_type(graph, page_id)
 
 
         posts = graph.get_object('me/posts', fields="about, story, message, created_time, shares, comments, permalink_url")
 
         for post in posts['data']:
             post['created_time'] = parser.parse(post['created_time'])
-
-        print(data)
 
         context = {'page': data, "fb_p_eng_users": fb_page_engaged_users, "fb_page_reach": fb_page_reach, 
                     "fb_page_impressions": fb_page_impressions, "fb_page_engagments": fb_page_engagments, 
