@@ -174,6 +174,142 @@
             </div>
           </div>
         </div>
+
+        
+        <div class="row ">
+          <div class="col-6">
+            <div class="card">
+              <div class="card-header text-center">
+                <h3 class="card-title">Create Post</h3>
+              </div>
+              <div class="card-body">
+                  <div class="d-inline p-2"><img style="border-bottom-right-radius: 50%;border-bottom-left-radius: 50%;border-top-right-radius: 50%;border-top-left-radius:50%;" src="{{picture}}" width="40" height="40" alt=""></div>
+                  <div class="d-inline p-2 pl-0 text-white">{{name}}</div>
+
+                  <form class="mt-4">
+                      <div class="form-group">
+                        <label for="exampleFormControlTextarea1" class="w-100">What's on your mind?
+                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </label>
+
+                        <label for="" class="w-100">
+                            <input class="form-control" style="display:none;" id="location_input" placeholder="Add location"></input>
+                          </label>
+
+                        <div class="row justify-content-center">
+                          <div class="file-field">
+                            <div class="d-flex justify-content-center">
+                              <div class="btn btn-mdb-color btn-rounded float-left">
+                                <i class="tim-icons icon-image-02"></i>
+                                <input type="file" onchange="readURL(this)">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="file-field">
+                            <div class="d-flex justify-content-center">
+                              <a href="javascript:void(0)" onclick="showLocationInput()" class="btn btn-mdb-color btn-rounded float-left ml-3">
+                                    <i class="tim-icons icon-world"></i>
+                                </a>
+                            </div>
+                          </div>
+
+                        </div>
+
+
+                        <button type="submit" class="btn btn-group btn-primary w-100 p-2 pb-3 mt-2" style="text-align: center;display: inline-block;">Post</button>
+                      </div>
+                    </form>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-6">
+            <div class="card">
+                <div class="card-header text-center">
+                  <h3 class="card-title">Post Preview</h3>
+                </div>
+                <div class="body">
+                  <div class="col bg-white p-5 pb-4">
+                    <div class="row">
+                      <div class="d-inline p-2"><img style="border-bottom-right-radius: 50%;border-bottom-left-radius: 50%;border-top-right-radius: 50%;border-top-left-radius:50%;" src="{{picture}}" width="40" height="40" alt=""></div>
+                      <div class="d-inline p-2 pl-0" id="preview_title">{{name}} <br> <small> Today</small></div>
+                    </div>
+                    <div class="row text-dark">
+                      <span id="preview_message">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos aspernatur temporibus incidunt velit libero ipsum dolore vel earum nobis totam ducimus maiores unde explicabo alias, adipisci impedit error fugit cum?</span>
+                    </div>
+                    <div class="row mt-3 justify-content-center">
+                        <div id="carouselExampleControls" class="carousel slide w-100" data-ride="carousel">
+                            <div class="carousel-inner">
+                              <div class="carousel-item active">
+                                <img class="d-block w-100" id="preview_image" src="" alt="No image">
+                              </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </div>
+                    </div>
+                  </div>
+                  <div class="col bg-secondary w-100 p-3">
+
+                  </div>                    
+                </div>
+          </div>
+
+        <script>
+            const message_field = document.getElementById('exampleFormControlTextarea1');
+            const preview_message = document.getElementById('preview_message');
+            const location_field = document.getElementById('location_input');
+            const previewTitle_filed = document.getElementById('preview_title');
+            
+            location_field.addEventListener('change', previewLocation);
+            message_field.addEventListener('change', updateValue);
+
+            function updateValue(e) {
+              preview_message.innerHTML = e.target.value;
+            }
+            function previewLocation(e) {
+              previewTitle_filed.innerHTML = "{{name}} is at "+ e.target.value
+            }
+
+            function readURL(input) {
+                var url = input.value;
+                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+                if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#preview_image').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }else{
+                    $('#preview_image').attr('src', '/assets/no_preview.png');
+                }
+              }
+              
+            
+            function showLocationInput() {
+              
+              var x = document.getElementById("location_input");
+              if (x.style.display === "none") {
+                x.style.display = "block";
+              } else {
+                x.style.display = "none";
+              }
+            }
+
+        </script>
+        
+        
+        </div>
+
         <div class="row">
           <!-- <div class="col-lg-6 col-md-12">
             <div class="card card-tasks">

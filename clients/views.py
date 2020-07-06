@@ -287,6 +287,11 @@ class DashboardView(ListView):
 
 
     def get(self, request, page_token, page_id):
+        user = User.objects.get(pk=request.user.id)
+        social_user = user.social_auth.get(provider="facebook")
+        name = False
+        if user.last_name != "" and user.last_name != "":
+            name = str(user.first_name)+" "+str(user.last_name)
 
         graph = facebook.GraphAPI(page_token)
 
@@ -311,8 +316,8 @@ class DashboardView(ListView):
                     "fb_page_impressions": fb_page_impressions, "fb_page_engagments": fb_page_engagments, 
                     "fb_page_engagments_months": fb_page_engagments_months, 
                     "total_page_engagments": self.get_total(fb_page_engagments), "fb_total_cta": fb_total_cta,
-                    "fb_total_cta_months": fb_total_cta_months,
-                    "total_cta": self.get_total(fb_total_cta), 'posts': posts['data']}
+                    "fb_total_cta_months": fb_total_cta_months, "picture": social_user.extra_data["picture"]["data"]["url"],
+                    "total_cta": self.get_total(fb_total_cta), 'posts': posts['data'], "name": name}
         return render(request, "clients/dashboard.html", context)
 
 class ClienteleView(ListView):
