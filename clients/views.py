@@ -402,7 +402,6 @@ class PagesView(ListView):
 
         #         print(instagram_data)
 
-
         return render(request, "clients/pages.html", context)
 
 class SinglePageView(ListView):
