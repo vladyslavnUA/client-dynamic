@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'accounts',
     'projects',
     'clients',
-    # 'instagram',
+    'instagramApi',
 ]
 
 MIDDLEWARE = [
