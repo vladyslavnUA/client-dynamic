@@ -186,40 +186,53 @@
                   <div class="d-inline p-2"><img style="border-bottom-right-radius: 50%;border-bottom-left-radius: 50%;border-top-right-radius: 50%;border-top-left-radius:50%;" src="{{picture}}" width="40" height="40" alt=""></div>
                   <div class="d-inline p-2 pl-0 text-white">{{name}}</div>
 
-                  <form class="mt-4">
+                  <form class="mt-4" action="{% url 'clients:post-to-facebook' token %}" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
                       <div class="form-group">
                         <label for="exampleFormControlTextarea1" class="w-100">What's on your mind?
-                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                          <textarea class="form-control" name="message" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </label>
 
                         <label for="" class="w-100">
-                            <input class="form-control" style="display:none;" id="location_input" placeholder="Add location"></input>
+                            <input class="form-control" name="location" style="display:none;" id="location_input" placeholder="Add location"></input>
                           </label>
+
+                        <label for="" class="w-100">
+                            <input class="form-control" name="link" style="display:none;" id="link_input" placeholder="Add link"></input>
+                          </label>
+
+
 
                         <div class="row justify-content-center">
                           <div class="file-field">
                             <div class="d-flex justify-content-center">
                               <div class="btn btn-mdb-color btn-rounded float-left">
                                 <i class="tim-icons icon-image-02"></i>
-                                <input type="file" onchange="readURL(this)">
+                                <input type="file" name="image" onchange="readURL(this)">
                               </div>
                             </div>
                           </div>
 
                           <div class="file-field">
                             <div class="d-flex justify-content-center">
-                              <a href="javascript:void(0)" onclick="showLocationInput()" class="btn btn-mdb-color btn-rounded float-left ml-3">
+                              <a href="javascript:void(0)" onclick="showInput(1)" class="btn btn-mdb-color btn-rounded float-left ml-3">
                                     <i class="tim-icons icon-world"></i>
                                 </a>
                             </div>
                           </div>
 
+                          <div class="file-field">
+                              <div class="d-flex justify-content-center">
+                                <a href="javascript:void(0)" onclick="showInput(2)" class="btn btn-mdb-color btn-rounded float-left ml-3">
+                                      <i class="tim-icons icon-link-72"></i>
+                                  </a>
+                              </div>
+                            </div>
                         </div>
-
 
                         <button type="submit" class="btn btn-group btn-primary w-100 p-2 pb-3 mt-2" style="text-align: center;display: inline-block;">Post</button>
                       </div>
-                    </form>
+                  </form>
               </div>
             </div>
           </div>
@@ -267,13 +280,14 @@
             const preview_message = document.getElementById('preview_message');
             const location_field = document.getElementById('location_input');
             const previewTitle_filed = document.getElementById('preview_title');
-            
             location_field.addEventListener('change', previewLocation);
             message_field.addEventListener('change', updateValue);
+
 
             function updateValue(e) {
               preview_message.innerHTML = e.target.value;
             }
+            
             function previewLocation(e) {
               previewTitle_filed.innerHTML = "{{name}} is at "+ e.target.value
             }
@@ -286,18 +300,27 @@
 
                     reader.onload = function (e) {
                         $('#preview_image').attr('src', e.target.result);
+                        // console.log(e.target.result)
                     }
+
+                    
 
                     reader.readAsDataURL(input.files[0]);
                 }else{
-                    $('#preview_image').attr('src', '/assets/no_preview.png');
+                    // $('#preview_image').attr('src', '/assets/no_preview.png');
                 }
               }
               
             
-            function showLocationInput() {
+            function showInput(num) {
               
-              var x = document.getElementById("location_input");
+              if (num == 1) {
+                var x = document.getElementById("location_input");
+              }
+              else if (num == 2) {
+                var x = document.getElementById("link_input");
+              }
+              
               if (x.style.display === "none") {
                 x.style.display = "block";
               } else {

@@ -9,7 +9,7 @@ import requests
 import datetime
 from dateutil import parser
 # from .models import Mood
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
@@ -18,6 +18,10 @@ from .models import Profile, Client
 from .forms import ClientForm
 import facebook
 import json
+import os
+from django.core.files.storage import FileSystemStorage
+from instagram.client import InstagramAPI
+
 
 class IndexView(ListView):
     def get(self, request):
@@ -317,8 +321,44 @@ class DashboardView(ListView):
                     "fb_page_engagments_months": fb_page_engagments_months, 
                     "total_page_engagments": self.get_total(fb_page_engagments), "fb_total_cta": fb_total_cta,
                     "fb_total_cta_months": fb_total_cta_months, "picture": social_user.extra_data["picture"]["data"]["url"],
-                    "total_cta": self.get_total(fb_total_cta), 'posts': posts['data'], "name": name}
+                    "total_cta": self.get_total(fb_total_cta), 'posts': posts['data'], "name": name, "token": page_token}
         return render(request, "clients/dashboard.html", context)
+
+def PostFacebook(req, page_token):
+    user = User.objects.get(pk=req.user.id)
+    graph = facebook.GraphAPI(page_token)
+   
+    if req.method == 'POST':
+        message=req.POST.get('message')
+        location=req.POST.get('location')
+        image=req.POST.get('image')
+        link=req.POST.get('link')
+
+        if image is not "":
+            myfile = req.FILES['image']
+            fs = FileSystemStorage()
+            filename = fs.save(myfile.name, myfile)
+            uploaded_file_url = fs.url(filename)
+
+            graph.put_photo(image=open(uploaded_file_url, 'rb'),message=message)
+
+        elif link is not None:
+            graph.put_object(
+                parent_object="me",
+                connection_name="feed",
+                message=message,
+                link=link,
+            )
+
+        else:
+            graph.put_object(
+                parent_object="me",
+                connection_name="feed",
+                message=message,
+            )
+    
+    return HttpResponseRedirect(reverse('clients:dashboard', kwargs={'page_token': user.profile.fb_page_token, 'page_id':user.profile.fb_page_id }))
+
 
 class ClienteleView(ListView):
     def get(self, request):
@@ -341,8 +381,8 @@ class PagesView(ListView):
         social_user = user.social_auth.get(provider="facebook")
         token = social_user.extra_data['access_token']
 
-        if user.profile.fb_page_id != '' and user.profile.fb_page_token != '':
-            return HttpResponseRedirect(reverse('clients:dashboard', kwargs={'page_token': user.profile.fb_page_token, 'page_id':user.profile.fb_page_id }))
+        # if user.profile.fb_page_id != '' and user.profile.fb_page_token != '':
+        #     return HttpResponseRedirect(reverse('clients:dashboard', kwargs={'page_token': user.profile.fb_page_token, 'page_id':user.profile.fb_page_id }))
 
         graph = facebook.GraphAPI(token)
         data = graph.get_object('me', fields='first_name, location, link, email, posts, picture')
@@ -351,6 +391,16 @@ class PagesView(ListView):
 
         context = {'pages':  pages_data["data"]}
 
+        # testing over here 
+        # getting facebook pages that are connected to Instagram
+        
+        # for page in pages_data["data"]:
+        #     page_data_s = graph.get_object(page['id'], fields="name, connected_instagram_account")
+        #     if 'connected_instagram_account' in page_data_s.keys():
+            
+        #         instagram_data = graph.get_object("17841404143403828/media", metric="likes", fields="name, username, website, profile_picture_url, biography, followers_count, follows_count")
+
+        #         print(instagram_data)
 
 
         return render(request, "clients/pages.html", context)
