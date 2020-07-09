@@ -359,7 +359,6 @@ def PostFacebook(req, page_token):
     
     return HttpResponseRedirect(reverse('clients:dashboard', kwargs={'page_token': user.profile.fb_page_token, 'page_id':user.profile.fb_page_id }))
 
-
 class ClienteleView(ListView):
     def get(self, request):
         user = User.objects.get(pk=request.user.id)
@@ -387,20 +386,23 @@ class PagesView(ListView):
         graph = facebook.GraphAPI(token)
         data = graph.get_object('me', fields='first_name, location, link, email, posts, picture')
 
-        pages_data = graph.get_object('me/accounts', fields='overall_star_rating,name,about,access_token,description,cover,picture')        
+        pages_data = graph.get_object('me/accounts', fields='overall_star_rating,name,username, instagram_business_account,about,access_token,description,cover,picture')        
 
         context = {'pages':  pages_data["data"]}
+
 
         # testing over here 
         # getting facebook pages that are connected to Instagram
         
-        # for page in pages_data["data"]:
-        #     page_data_s = graph.get_object(page['id'], fields="name, connected_instagram_account")
-        #     if 'connected_instagram_account' in page_data_s.keys():
+        for page in pages_data["data"]:
+            if 'connected_instagram_account' in page.keys():
+                print(page)
+            # page_data_s = graph.get_object(page['id'], fields="name, connected_instagram_account")
+            # if 'connected_instagram_account' in page_data_s.keys():
             
-        #         instagram_data = graph.get_object("17841404143403828/media", metric="likes", fields="name, username, website, profile_picture_url, biography, followers_count, follows_count")
+            #     instagram_data = graph.get_object("17841404143403828/media", metric="likes", fields="name, username, website, profile_picture_url, biography, followers_count, follows_count")
 
-        #         print(instagram_data)
+            #     print(instagram_data)
 
         return render(request, "clients/pages.html", context)
 

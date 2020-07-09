@@ -119,8 +119,18 @@
                               <span>{{page.about}}</span>
                               
                               <div class="row mt-5">
-                                  <a class="btn btn-success btn-block" href="{% url 'clients:save-fb-page' page.access_token page.id %}">Connect to {{page.name}}</a>
+                                  
+                                <div class="col-6">
+                                      <a class="btn btn-success btn-block" href="{% url 'clients:save-fb-page' page.access_token page.id %}">Facebook</a>
+                                </div>
+                                {% if page.instagram_business_account %}  
+                                  <div class="col-6">
+                                      <a class="btn btn-primary btn-block" href="{% url 'instagram:index' page.username page.instagram_business_account.id page.access_token %}">Instgram</a>
+                                  </div>
+                                {% endif %}
+                                  
                               </div>
+                              
                             </div>
                           </div>
                        
