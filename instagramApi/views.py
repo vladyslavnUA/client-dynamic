@@ -15,8 +15,9 @@ class IndexView(ListView):
     
 
     def getPageInfo(self, graph, username, page_id, token):
-        response = graph.get_object(page_id, fields="biography,followers_count,follows_count,id,ig_id,media_count,name,profile_picture_url,username,website,media{comments_count,like_count}")
+        response = graph.get_object(page_id, fields="biography,followers_count,follows_count,id,ig_id,media_count,name,profile_picture_url,username,website,media{comments_count,like_count, shortcode}")
         
+
         return response
 
     def getComments(self, graph, media_id):
@@ -64,6 +65,9 @@ class IndexView(ListView):
         impressions = []
         reach = []
         profile_views = []
+        engagement = []
+        follower_count = []
+        website_clicks = []
 
         for insight in data['data']:
             for value in insight['values']:
@@ -73,9 +77,17 @@ class IndexView(ListView):
                         reach.append(value['value'])
                     elif insight['name'] == 'profile_views':
                         profile_views.append(value['value'])
+                    elif insight['name'] == 'phone_call_clicks' or insight['name'] == 'phone_call_clicks' or insight['name'] == 'text_message_clicks':
+                        engagement.append(value['value'])
+                    elif insight['name'] == 'follower_count':
+                        follower_count.append(value['value'])
+                    elif insight['name'] == 'website_clicks':
+                        website_clicks.append(value['value'])
+                        # print("website_clicks")
+                    # print(insight['name'])
 
 
-        return impressions, reach, profile_views
+        return impressions, reach, profile_views, engagement, follower_count, website_clicks
 
 
 
@@ -95,26 +107,11 @@ class IndexView(ListView):
         graph = facebook.GraphAPI(token)
 
         data = self.getPageInfo(graph, username, page_id, token)
-        # print("Disvovery:\n________")
-        # print("Profile Pic: {}\n________".format(data['profile_picture_url']))
-        # print("Name: {}, Username: {}, ID: {}, IGID: {}".format(data['name'], data['username'], data['id'], data['ig_id']))
-        # print("Biography: {}".format(data['biography']))
-        # print("Website: {}".format(data['website']))
-        # print("Followers: {}, Follows: {}, Media: {}\n________".format( data["followers_count"],data["follows_count"],data["media_count"]))
-        # self.getMentions(graph, page_id)
-        # print("_________")
-        # print("Insights: ")
-        # self.getInsights(graph, page_id)
-        impressions, reach, profile_views = self.getImpressions(graph, page_id)
-        # print("_________\nComments on Media:")
-        # for media in data["media"]["data"]:
-        #     print("ID: {}".format(media["id"]))
-        #     print("Comments Count: {}".format(media["comments_count"]))
-        #     self.getComments(graph, media['id'])
-        #     print("Like Count: {}".format(media["like_count"]))
-        # print("________")
 
-        context = {'impressions': impressions, "reach": reach, "profile_views": profile_views}
+        impressions, reach, profile_views, engagement, follower_count, website_clicks = self.getImpressions(graph, page_id)
 
-        print(impressions)
+        context = {'impressions': impressions, "reach": reach, "profile_views": profile_views, "engagement": engagement, "followers": follower_count, "website_clicks": website_clicks, "posts": data['media']['data']}
+
+        
+
         return render(request, "instagramApi/dashboard.html", context)

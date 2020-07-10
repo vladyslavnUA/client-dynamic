@@ -140,7 +140,7 @@ demo = {
   },
 
 
-  initDashboardPageCharts: function(fb_p_eng_users, fb_page_reach, fb_page_impressions, fb_page_engagments, fb_total_cta, fb_page_engagments_months, fb_total_cta_months) {
+  initDashboardPageCharts: function(fb_p_eng_users, fb_page_reach, fb_page_impressions, fb_page_engagments, fb_total_cta, fb_page_engagments_months, fb_total_cta_months, barChart_data) {
 
     gradientChartOptionsConfigurationWithTooltipBlue = {
       maintainAspectRatio: false,
@@ -554,7 +554,7 @@ demo = {
           borderWidth: 2,
           borderDash: [],
           borderDashOffset: 0.0,
-          data: [53, 20, 10, 80, 100, 45],
+          data: barChart_data,
         }]
       },
       options: gradientBarChartConfiguration

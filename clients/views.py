@@ -316,6 +316,8 @@ class DashboardView(ListView):
         for post in posts['data']:
             post['created_time'] = parser.parse(post['created_time'])
 
+        print(fb_total_cta_months)
+
         context = {'page': data, "fb_p_eng_users": fb_page_engaged_users, "fb_page_reach": fb_page_reach, 
                     "fb_page_impressions": fb_page_impressions, "fb_page_engagments": fb_page_engagments, 
                     "fb_page_engagments_months": fb_page_engagments_months, 
