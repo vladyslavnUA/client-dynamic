@@ -5,4 +5,5 @@ app_name = 'twitter'
 
 urlpatterns = [
     path('twitter/user/', views.ProfileView.as_view(), name='user-profile'),
+    path('twitter/dashboard/', views.DashboardView.as_view(), name='dashboard'),
 ]
