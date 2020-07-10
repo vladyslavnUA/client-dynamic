@@ -45,7 +45,6 @@ def getCreds(social_user):
     token_key = social_user.extra_data['access_token']['oauth_token']
     token_secret = social_user.extra_data['access_token']['oauth_token_secret']
     obj = {"twitter_key":twitter_key, "twitter_secret":twitter_secret, "token_key":token_key, "token_secret": token_secret}
-    print(obj)
     return obj 
 
 

@@ -27,8 +27,16 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
     ('link', 'profile_url'),
 ]
 
+# Twitter keys
 SOCIAL_AUTH_TWITTER_KEY = str(os.getenv('TWITTER_KEY'))
 SOCIAL_AUTH_TWITTER_SECRET = str(os.getenv('TWITTER_SECRET'))
+
+# Instagram Keys
+SOCIAL_AUTH_INSTAGRAM_KEY = str(os.getenv('INSTAGRAM_KEY'))         #Client ID
+SOCIAL_AUTH_INSTAGRAM_SECRET = str(os.getenv('INSTAGAM_SECRET'))  #Client SECRET
+SOCIAL_AUTH_INSTAGRAM_EXTRA_DATA = [('user', 'user'),]
+SOCIAL_AUTH_INSTAGRAM_AUTH_EXTRA_ARGUMENTS = {'scope': 'user_profile'}
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
