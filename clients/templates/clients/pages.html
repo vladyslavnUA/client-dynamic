@@ -100,43 +100,63 @@
                   </div>
                   <div class="row">
                     <div class="col-lg-8 ml-auto mr-auto">
-                      <div class="row">
-                        <div class="col-md-8">
-                          <!-- <div class="card"> -->
-                            <!-- {{resp}}
-                          </div>
-                          <div class="card">
-                              {{me}}
-                            </div> -->
-                        
+                      <!-- <div class="row"> -->
+                        <!-- <div class="col-md-8"> -->
                             
                           {% for page in pages %}
-                          <div class="card">
-                            <div class="card-header">
-                              <h3><img src="{{page.picture.data.url}}" alt=""> {{page.name}}</h3>
-                            </div>
-                            <div class="card-body">
-                              <span>{{page.about}}</span>
-                              
-                              <div class="row mt-5">
-                                  
-                                <div class="col-6">
-                                      <a class="btn btn-success btn-block" href="{% url 'clients:save-fb-page' page.access_token page.id %}">Facebook</a>
+                            {% if show == 0 %}
+                              <div class="card">
+                                <div class="card-header">
+                                  <h3><img src="{{page.picture.data.url}}" alt=""> {{page.name}}</h3>
                                 </div>
-                                {% if page.instagram_business_account %}  
-                                  <div class="col-6">
-                                      <a class="btn btn-primary btn-block" href="{% url 'instagram:index' page.username page.instagram_business_account.id page.access_token %}">Instgram</a>
-                                  </div>
-                                {% endif %}
+                                <div class="card-body">
+                                  <span>{{page.about}}</span>
                                   
+                                  <div class="row mt-5">
+                                      
+                                    <div class="col-6">
+                                          <a class="btn btn-success btn-block" href="{% url 'clients:save-fb-page' page.access_token page.id %}">Facebook</a>
+                                    </div>
+                                    {% if page.instagram_business_account %}  
+                                      <div class="col-6">
+                                          <a class="btn btn-primary btn-block" href="{% url 'instagram:index' page.username page.instagram_business_account.id page.access_token %}">Instgram</a>
+                                      </div>
+                                    {% endif %}
+                                      
+                                  </div>
+                                  
+                                </div>
                               </div>
-                              
-                            </div>
-                          </div>
-                       
+                            {% else %}
+                              {% if page.instagram_business_account %}  
+                              <div class="card">
+                                <div class="card-header">
+                                  <h3><img src="{{page.picture.data.url}}" alt=""> {{page.name}}</h3>
+                                </div>
+                                <div class="card-body">
+                                  <span>{{page.about}}</span>
+                                  
+                                  <div class="row mt-5">
+                                      
+                                    <div class="col-6">
+                                          <a class="btn btn-success btn-block" href="{% url 'clients:save-fb-page' page.access_token page.id %}">Facebook</a>
+                                    </div>
+                                    {% if page.instagram_business_account %}  
+                                      <div class="col-6">
+                                          <a class="btn btn-primary btn-block" href="{% url 'instagram:index' page.username page.instagram_business_account.id page.access_token %}">Instgram</a>
+                                      </div>
+                                    {% endif %}
+                                      
+                                  </div>
+                                  
+                                </div>
+                              </div>
+                              {% endif %}
+                            {% endif %}
+
                           {% endfor %}
-                        </div>
-                      </div>
+                        <!-- </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>

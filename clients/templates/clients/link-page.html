@@ -102,10 +102,10 @@
                     <div class="col-lg-8 ml-auto mr-auto">
                       <div class="row">
                         <div class="col-md-4">
-                          <a class="btn btn-info btn-block alert-info" href="{% url 'clients:select-page' %}">Facebook</a>
+                          <a class="btn btn-info btn-block alert-info" href="{% url 'clients:select-page' 0 %}">Facebook</a>
                         </div>
                         <div class="col-md-4">
-                          <a class="btn btn-warning btn-block" href="">Instagram</a>
+                          <a class="btn btn-warning btn-block" href="{% url 'clients:select-page' 1 %}">Instagram</a>
                         </div>
                         <div class="col-md-4">
                           <a class="btn btn-success btn-block" href="">Twitter</a>

@@ -377,7 +377,7 @@ class LinkPageView(ListView):
 
 class PagesView(ListView):
 
-    def get(self, request):
+    def get(self, request, show):
         user = User.objects.get(pk=request.user.id)
         social_user = user.social_auth.get(provider="facebook")
         token = social_user.extra_data['access_token']
@@ -390,7 +390,7 @@ class PagesView(ListView):
 
         pages_data = graph.get_object('me/accounts', fields='overall_star_rating,name,username, instagram_business_account,about,access_token,description,cover,picture')        
 
-        context = {'pages':  pages_data["data"]}
+        context = {'pages':  pages_data["data"], "show": show}
 
 
         # testing over here 

@@ -112,6 +112,7 @@ class IndexView(ListView):
 
         context = {'impressions': impressions, "reach": reach, "profile_views": profile_views, "engagement": engagement, "followers": follower_count, "website_clicks": website_clicks, "posts": data['media']['data']}
 
-        
+
+
 
         return render(request, "instagramApi/dashboard.html", context)
