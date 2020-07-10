@@ -15,8 +15,8 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # FACEBOOK API KEYS
 SOCIAL_AUTH_FACEBOOK_KEY = str(os.getenv('SOCIAL_AUTH_FACEBOOK_KEY'))
 SOCIAL_AUTH_FACEBOOK_SECRET = str(os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET'))
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['manage_pages', 'pages_manage_cta','pages_manage_instant_articles','pages_show_list','publish_pages', 'email', 'user_link']
-FACEBOOK_EXTENDED_PERMISSIONS = ['manage_pages', 'pages_manage_cta','pages_manage_instant_articles','pages_show_list','publish_pages']
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['pages_manage_cta','pages_manage_instant_articles','pages_show_list', 'email', 'user_link']
+FACEBOOK_EXTENDED_PERMISSIONS = ['pages_manage_cta','pages_manage_instant_articles','pages_show_list']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
   'fields': 'id, name, email, picture.type(large), link'
 }
@@ -47,9 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'social_django',
     'accounts',
-    'projects',
     'clients',
     'instagramApi',
+    "twitterApi"
 ]
 
 MIDDLEWARE = [
@@ -62,7 +62,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
-
 ]
 
 ROOT_URLCONF = 'clientdynamic.urls'

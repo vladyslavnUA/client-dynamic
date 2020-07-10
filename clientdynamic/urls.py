@@ -20,6 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('clients.urls')),
     path('', include('instagramApi.urls')),
+    path('', include('twitterApi.urls')),
     # OATH URLS
     path('accounts/', include('django.contrib.auth.urls')),
     path('', include('accounts.urls')),

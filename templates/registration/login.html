@@ -47,8 +47,15 @@
                         <a href="#">Login with Instagram</a>
                     </button> -->
                     <!-- <button type="button" class="btn btn-primary"> -->
+                            {% if not user.is_authenticated %}
+
                         <a class="btn btn-outline-primary p-3" style="color: blue" role="button" href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
                         <a class="btn btn-outline-primary p-3" style="color: blue" role="button" href="{% url 'social:begin' 'twitter' %}">Login with Twitter</a>
+
+                        {% else %}
+                            <a class="btn btn-outline-primary p-3" style="color: blue" role="button" href="{% url 'logout-social' %}">Login with Facebook</a>
+                            <a class="btn btn-outline-primary p-3" style="color: blue" role="button" href="{% url 'logout-social' %}">Login with Twitter</a>
+                        {% endif %}
                     <!-- </button> -->
                     <!-- <button class="btn mb-2">
                         <a href="#">Login with LinkedIn</a>

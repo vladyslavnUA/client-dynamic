@@ -428,10 +428,12 @@ class UserProfileView(ListView):
     def get(self, request):
         user = User.objects.get(pk=request.user.id)
 
-        print("-------------------")
+        # print("-------------------")
         u = user.social_auth.get()
-        print(u.provider)
-        print("-------------------")
+
+        if "twitter" == u.provider:
+            print("redirecitng now---------")
+            return redirect('twitter:user-profile')
 
         social_user = user.social_auth.get()
 
