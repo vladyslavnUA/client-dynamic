@@ -61,11 +61,23 @@ class IndexView(ListView):
                                          until=y,
                                          show_description_from_api_doc=True)
 
+        impressions = []
+        reach = []
+        profile_views = []
+
         for insight in data['data']:
-            print("{} by {} | Description: {}".format(insight['name'], insight['period'], insight['description']))
             for value in insight['values']:
-                print("Value: {}, Data: {}".format(value['value'], value['end_time']))
-            print("----------------")
+                    if insight['name'] == 'impressions':
+                        impressions.append(value['value'])
+                    elif insight['name'] == 'reach':
+                        reach.append(value['value'])
+                    elif insight['name'] == 'profile_views':
+                        profile_views.append(value['value'])
+
+
+        return impressions, reach, profile_views
+
+
 
 
 
@@ -78,22 +90,22 @@ class IndexView(ListView):
 
 
     def get(self, request, username,  page_id, token):
-        context = {'data': 'self.getWeatherData()'}
+        
 
         graph = facebook.GraphAPI(token)
 
         data = self.getPageInfo(graph, username, page_id, token)
-        print("Disvovery:\n________")
-        print("Profile Pic: {}\n________".format(data['profile_picture_url']))
-        print("Name: {}, Username: {}, ID: {}, IGID: {}".format(data['name'], data['username'], data['id'], data['ig_id']))
-        print("Biography: {}".format(data['biography']))
-        print("Website: {}".format(data['website']))
-        print("Followers: {}, Follows: {}, Media: {}\n________".format( data["followers_count"],data["follows_count"],data["media_count"]))
+        # print("Disvovery:\n________")
+        # print("Profile Pic: {}\n________".format(data['profile_picture_url']))
+        # print("Name: {}, Username: {}, ID: {}, IGID: {}".format(data['name'], data['username'], data['id'], data['ig_id']))
+        # print("Biography: {}".format(data['biography']))
+        # print("Website: {}".format(data['website']))
+        # print("Followers: {}, Follows: {}, Media: {}\n________".format( data["followers_count"],data["follows_count"],data["media_count"]))
         # self.getMentions(graph, page_id)
-        print("_________")
+        # print("_________")
         # print("Insights: ")
         # self.getInsights(graph, page_id)
-        self.getImpressions(graph, page_id)
+        impressions, reach, profile_views = self.getImpressions(graph, page_id)
         # print("_________\nComments on Media:")
         # for media in data["media"]["data"]:
         #     print("ID: {}".format(media["id"]))
@@ -102,4 +114,7 @@ class IndexView(ListView):
         #     print("Like Count: {}".format(media["like_count"]))
         # print("________")
 
-        return render(request, "instagramApi/index.html", context)
+        context = {'impressions': impressions, "reach": reach, "profile_views": profile_views}
+
+        print(impressions)
+        return render(request, "instagramApi/dashboard.html", context)
