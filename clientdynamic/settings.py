@@ -14,20 +14,9 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # FACEBOOK API KEYS
 SOCIAL_AUTH_FACEBOOK_KEY = str(os.getenv('SOCIAL_AUTH_FACEBOOK_KEY'))
-# '1476435592528450' # App ID
-# str(os.getenv('SOCIAL_AUTH_FACEBOOK_KEY'))  # FB App ID
-
 SOCIAL_AUTH_FACEBOOK_SECRET = str(os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET'))
-# '2841928cca8f0223617ee501039ac7b1' # FB App Secret
-
-# SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'pages_show_list']
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['manage_pages', 'pages_manage_cta','pages_manage_instant_articles','pages_show_list','publish_pages']
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['manage_pages', 'pages_manage_cta','pages_manage_instant_articles','pages_show_list','publish_pages', 'email', 'user_link']
 FACEBOOK_EXTENDED_PERMISSIONS = ['manage_pages', 'pages_manage_cta','pages_manage_instant_articles','pages_show_list','publish_pages']
-
-
-
-# str(os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET'))  # FB App Secret
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
   'fields': 'id, name, email, picture.type(large), link'
 }
@@ -37,6 +26,9 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
     ('picture', 'picture'),
     ('link', 'profile_url'),
 ]
+
+SOCIAL_AUTH_TWITTER_KEY = str(os.getenv('TWITTER_KEY'))
+SOCIAL_AUTH_TWITTER_SECRET = str(os.getenv('TWITTER_SECRET'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -110,6 +102,7 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.linkedin.LinkedinOAuth2',
     'social_core.backends.instagram.InstagramOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
