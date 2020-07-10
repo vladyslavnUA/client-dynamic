@@ -12,32 +12,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
-# FACEBOOK API KEYS
-SOCIAL_AUTH_FACEBOOK_KEY = str(os.getenv('SOCIAL_AUTH_FACEBOOK_KEY'))
-SOCIAL_AUTH_FACEBOOK_SECRET = str(os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET'))
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['pages_manage_cta','pages_manage_instant_articles','pages_show_list', 'email', 'user_link']
-FACEBOOK_EXTENDED_PERMISSIONS = ['pages_manage_cta','pages_manage_instant_articles','pages_show_list']
-SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
-  'fields': 'id, name, email, picture.type(large), link'
-}
-SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
-    ('name', 'name'),
-    ('email', 'email'),
-    ('picture', 'picture'),
-    ('link', 'profile_url'),
-]
-
-# Twitter keys
-SOCIAL_AUTH_TWITTER_KEY = str(os.getenv('TWITTER_KEY'))
-SOCIAL_AUTH_TWITTER_SECRET = str(os.getenv('TWITTER_SECRET'))
-
-# Instagram Keys
-SOCIAL_AUTH_INSTAGRAM_KEY = str(os.getenv('INSTAGRAM_KEY'))         #Client ID
-SOCIAL_AUTH_INSTAGRAM_SECRET = str(os.getenv('INSTAGAM_SECRET'))  #Client SECRET
-SOCIAL_AUTH_INSTAGRAM_EXTRA_DATA = [('user', 'user'),]
-SOCIAL_AUTH_INSTAGRAM_AUTH_EXTRA_ARGUMENTS = {'scope': 'user_profile'}
-
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -112,6 +86,34 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+
+# FACEBOOK API KEYS
+SOCIAL_AUTH_FACEBOOK_KEY = str(os.getenv('SOCIAL_AUTH_FACEBOOK_KEY'))
+SOCIAL_AUTH_FACEBOOK_SECRET = str(os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET'))
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['pages_manage_cta','pages_manage_instant_articles','pages_show_list', 'email', 'user_link']
+FACEBOOK_EXTENDED_PERMISSIONS = ['pages_manage_cta','pages_manage_instant_articles','pages_show_list']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
+  'fields': 'id, name, email, picture.type(large), link'
+}
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
+    ('name', 'name'),
+    ('email', 'email'),
+    ('picture', 'picture'),
+    ('link', 'profile_url'),
+]
+
+# Twitter keys
+SOCIAL_AUTH_TWITTER_KEY = str(os.getenv('TWITTER_KEY'))
+SOCIAL_AUTH_TWITTER_SECRET = str(os.getenv('TWITTER_SECRET'))
+
+# Instagram Keys
+SOCIAL_AUTH_INSTAGRAM_KEY = str(os.getenv('INSTAGRAM_KEY'))         #Client ID
+SOCIAL_AUTH_INSTAGRAM_SECRET = str(os.getenv('INSTAGAM_SECRET'))  #Client SECRET
+SOCIAL_AUTH_INSTAGRAM_EXTRA_DATA = [('user', 'user'),]
+SOCIAL_AUTH_INSTAGRAM_AUTH_EXTRA_ARGUMENTS = {'scope': 'user_profile'}
+
+
 
 WSGI_APPLICATION = 'clientdynamic.wsgi.application'
 
