@@ -21,7 +21,7 @@ import json
 import os
 from django.core.files.storage import FileSystemStorage
 from instagram.client import InstagramAPI
-
+from .facebookAPI import FacebookAPI
 
 class IndexView(ListView):
     def get(self, request):
@@ -29,306 +29,49 @@ class IndexView(ListView):
 
         return render(request, "clients/index.html", context)
 
-        
 class DashboardView(ListView):
 
-    def get_page_impressions_monthly(self, graph, page_id):
-        page_impressions = graph.get_connections(id=page_id,
-                                         connection_name='insights',
-                                         metric='page_impressions',
-                                         date_preset='this_year',
-                                         period='day',
-                                         show_description_from_api_doc=True)
-
-        fb_impressions = page_impressions['data'][0]['values']
-
-        fb_impressions_nums = []
-
-        temp = None
-        sum = 0
-
-        for impression in fb_impressions:
-            datee = parser.parse(impression['end_time'])
-
-            if temp is None:
-                temp = datee.month
-
-            if datee.month == temp:
-                sum += impression['value']
-            else:
-                fb_impressions_nums.append(sum)
-                sum = 0
-            
-            temp = datee.month
-
-        
-        while len(fb_impressions_nums) < 12:
-            fb_impressions_nums.append(0)
-
-        return fb_impressions_nums
-
-    def get_page_likes_monthly(self, graph, page_id):
-        page_likes = graph.get_connections(id=page_id,
-                                         connection_name='insights',
-                                         metric='page_positive_feedback_by_type',
-                                         date_preset='this_year',
-                                         period='day',
-                                         show_description_from_api_doc=True)
-
-        fb_likes = page_likes['data'][0]['values']
-
-        fb_likes_nums = []
-
-        temp = None
-        sum = 0
-
-        for like in fb_likes:
-            datee = parser.parse(like['end_time'])
-
-            if temp is None:
-                temp = datee.month
-
-            if datee.month == temp:
-
-                sum += 1
-                print(like['value'])
-
-
-                # print('We are in month {}'.format(temp))
-            else:
-                fb_likes_nums.append(sum)
-                sum = 0
-                # print('NEXT MONTH {}'.format(datee.month))
-            
-            temp = datee.month
-
-        
-        while len(fb_likes_nums) < 12:
-            fb_likes_nums.append(0)
-
-        return fb_likes_nums
-    
-    def get_page_clicks_monthly(self, graph, page_id):
-        page_clicks = graph.get_connections(id=page_id,
-                                         connection_name='insights',
-                                         metric='page_total_actions',
-                                         date_preset='this_year',
-                                         period='day',
-                                         show_description_from_api_doc=True)
-
-        fb_clicks = page_clicks['data'][0]['values']
-        fb_clicks_nums = []
-        fb_clicks_months = []
-        temp = None
-        sum = 0
-        for click in fb_clicks:
-            datee = parser.parse(click['end_time'])
-            if temp is None:
-                temp = datee
-            if datee.month == temp.month:
-                sum += click['value']
-            else:
-                fb_clicks_nums.append(sum)
-                fb_clicks_months.append(temp.month)
-                sum = 0
-            
-            temp = datee
-
-        while len(fb_clicks_nums) < 12:
-            fb_clicks_nums.append(0)
-
-        return fb_clicks_nums, fb_clicks_months
-
-    def get_page_post_engagements(self, graph, page_id):
-        page_engagements = graph.get_connections(id=page_id,
-                                         connection_name='insights',
-                                         metric='page_post_engagements',
-                                         date_preset='this_year',
-                                         period='day',
-                                         show_description_from_api_doc=True)
-
-        fb_engagements = page_engagements['data'][0]['values']
-        fb_engagements_nums = []
-        fb_engagements_months = []
-        temp = None
-        sum = 0
-        for eng in fb_engagements:
-            datee = parser.parse(eng['end_time'])
-
-            if temp is None:
-                temp = datee
-            if datee.month == temp.month:
-                sum += eng['value']
-            else:
-                fb_engagements_nums.append(sum)
-                fb_engagements_months.append(temp.month)
-                sum = 0
-            
-            temp = datee
-
-        while len(fb_engagements_nums) < 12:
-            fb_engagements_nums.append(0)
-
-        return fb_engagements_nums, fb_engagements_months
-
-    def get_page_engagements(self, graph, page_id):
-        page_engaged_users = graph.get_connections(id=page_id,
-                                         connection_name='insights',
-                                         metric='page_engaged_users',
-                                         date_preset='this_year',
-                                         period='day',
-                                         show_description_from_api_doc=True)
-        fb_engaged_users = page_engaged_users['data'][0]['values']
-        fb_engagements_nums = []
-        temp = None
-        sum = 0
-        
-        for eng in fb_engaged_users:
-            datee = parser.parse(eng['end_time'])
-            if temp is None:
-                temp = datee
-            if datee.month == temp.month:
-                sum += eng['value']
-            else:
-                fb_engagements_nums.append(sum)
-                sum = 0
-            temp = datee
-
-
-        while len(fb_engagements_nums) < 12:
-            fb_engagements_nums.append(0)
-        return fb_engagements_nums
-
-    def get_page_reach(self, graph, page_id):
-        page_engaged_users = graph.get_connections(id=page_id,
-                                        connection_name='insights',
-                                        metric='page_impressions_frequency_distribution',
-                                        date_preset='this_year',
-                                        period='day',
-                                        show_description_from_api_doc=True)
-        fb_engaged_users = page_engaged_users['data'][0]['values']
-        fb_engagements_nums = []
-        temp = None
-        sum = 0
-        for eng in fb_engaged_users:
-            # print(eng)
-            datee = parser.parse(eng['end_time'])
-            if temp is None:
-                temp = datee.month
-            if datee.month == temp:
-                for k,v in eng['value'].items():
-                    sum += v
-            else:
-                fb_engagements_nums.append(sum)
-                sum = 0
-            temp = datee.month
-        while len(fb_engagements_nums) < 12:
-            fb_engagements_nums.append(0)
-        return fb_engagements_nums
-
-    def page_positive_feedback_by_type(self, graph, page_id):
-        page_positive_feedback_by_type = graph.get_connections(id=page_id,
-                                        connection_name='insights',
-                                        metric='page_fans_locale',
-                                        show_description_from_api_doc=True)
-        feedbacks = page_positive_feedback_by_type['data']
-        print(feedbacks)
-        # fb_engagements_nums = []
-        # temp = None
-        # sum = 0
-        # for feed in feedbacks:
-        #     print(feed)
-        #     datee = parser.parse(eng['end_time'])
-        #     if temp is None:
-        #         temp = datee.month
-        #     if datee.month == temp:
-        #         for k,v in eng['value'].items():
-        #             sum += v
-        #     else:
-        #         fb_engagements_nums.append(sum)
-        #         sum = 0
-        #     temp = datee.month
-        # while len(fb_engagements_nums) < 12:
-        #     fb_engagements_nums.append(0)
-        # return fb_engagements_nums
-    
-    def get_page_referrals(self, graph, page_id):
-        page_referrals = graph.get_connections(id=page_id,
-                                        connection_name='insights',
-                                        metric='page_fans_by_like_source_unique',
-                                        date_preset='this_year',
-                                        period='day',
-                                        show_description_from_api_doc=True)
-        fb_referrals = page_referrals['data'][0]['values']
-        
-        fb_referrals_nums = []
-        temp = None
-        sum = 0
-        for eng in fb_referrals:
-
-            print(eng)
-            # print(eng)
-            datee = parser.parse(eng['end_time'])
-            if temp is None:
-                temp = datee.month
-            if datee.month == temp:
-                for k,v in eng['value'].items():
-                    sum += v
-            else:
-                fb_referrals_nums.append(sum)
-                sum = 0
-            temp = datee.month
-        while len(fb_referrals_nums) < 12:
-            fb_referrals_nums.append(0)
-        return fb_referrals_nums
-
     # returns sum of an array
-    def get_total(self, data):
-        sum = 0
+    def get_sum(self, data):
+        total = 0
         for i in data:
-            sum += i
-        return sum
+            total += i
+        return total
 
+    def get_fullName(self, user):
+        name = False
+        if user.last_name != "":
+            name = str(user.first_name)
+        if  user.last_name != "":
+            name = " "+str(user.last_name)
+
+        return name
 
     def get(self, request, page_token, page_id):
         user = User.objects.get(pk=request.user.id)
         social_user = user.social_auth.get(provider="facebook")
-        name = False
-        if user.last_name != "" and user.last_name != "":
-            name = str(user.first_name)+" "+str(user.last_name)
 
-        graph = facebook.GraphAPI(page_token)
+        graph = FacebookAPI(page_token, page_id)
 
-        data = graph.get_object('me')
+        fb_page_engagments, fb_page_engagments_months = graph.get_page_post_engagements()
+        fb_total_cta, fb_total_cta_months = graph.get_page_clicks_monthly()
 
+        # graph.page_positive_feedback_by_type()
 
-        fb_page_engaged_users = self.get_page_engagements(graph, page_id)
-        fb_page_reach = self.get_page_reach(graph, page_id)
-        fb_page_impressions = self.get_page_impressions_monthly(graph, page_id)
-        fb_page_engagments, fb_page_engagments_months = self.get_page_post_engagements(graph, page_id)
-        fb_total_cta, fb_total_cta_months = self.get_page_clicks_monthly(graph, page_id)
-
-        self.page_positive_feedback_by_type(graph, page_id)
-
-
-        posts = graph.get_object('me/posts', fields="about, story, message, created_time, shares, comments, permalink_url")
-
-        for post in posts['data']:
-            post['created_time'] = parser.parse(post['created_time'])
-
-        print(fb_total_cta_months)
-
-        context = {'page': data, "fb_p_eng_users": fb_page_engaged_users, "fb_page_reach": fb_page_reach, 
-                    "fb_page_impressions": fb_page_impressions, "fb_page_engagments": fb_page_engagments, 
-                    "fb_page_engagments_months": fb_page_engagments_months, 
-                    "total_page_engagments": self.get_total(fb_page_engagments), "fb_total_cta": fb_total_cta,
+        context = {'page': graph.get_page_info(), "fb_p_eng_users": graph.get_page_engagements(),
+                    "fb_page_reach": graph.get_page_reach(), "fb_page_impressions": graph.get_page_impressions_monthly(), 
+                    "fb_page_engagments": fb_page_engagments, "fb_page_engagments_months": fb_page_engagments_months, 
+                    "total_page_engagments": self.get_sum(fb_page_engagments), "fb_total_cta": fb_total_cta,
                     "fb_total_cta_months": fb_total_cta_months, "picture": social_user.extra_data["picture"]["data"]["url"],
-                    "total_cta": self.get_total(fb_total_cta), 'posts': posts['data'], "name": name, "token": page_token}
+                    "total_cta": self.get_sum(fb_total_cta), 'posts': graph.get_page_posts(), "name": self.get_fullName(user), 
+                    "token": page_token
+                    }
+
         return render(request, "clients/dashboard.html", context)
 
 def PostFacebook(req, page_token):
     user = User.objects.get(pk=req.user.id)
-    graph = facebook.GraphAPI(page_token)
+    graph = FacebookAPI(page_token)
    
     if req.method == 'POST':
         message=req.POST.get('message')
@@ -341,23 +84,10 @@ def PostFacebook(req, page_token):
             fs = FileSystemStorage()
             filename = fs.save(myfile.name, myfile)
             uploaded_file_url = fs.url(filename)
-
-            graph.put_photo(image=open(uploaded_file_url, 'rb'),message=message)
-
-        elif link is not None:
-            graph.put_object(
-                parent_object="me",
-                connection_name="feed",
-                message=message,
-                link=link,
-            )
+            graph.post_to_facebook(message, uploaded_file_url, link)
 
         else:
-            graph.put_object(
-                parent_object="me",
-                connection_name="feed",
-                message=message,
-            )
+            graph.post_to_facebook(message, None, link)
     
     return HttpResponseRedirect(reverse('clients:dashboard', kwargs={'page_token': user.profile.fb_page_token, 'page_id':user.profile.fb_page_id }))
 
@@ -385,26 +115,10 @@ class PagesView(ListView):
         # if user.profile.fb_page_id != '' and user.profile.fb_page_token != '':
         #     return HttpResponseRedirect(reverse('clients:dashboard', kwargs={'page_token': user.profile.fb_page_token, 'page_id':user.profile.fb_page_id }))
 
-        graph = facebook.GraphAPI(token)
-        data = graph.get_object('me', fields='first_name, location, link, email, posts, picture')
+        graph = FacebookAPI(token)
+        data = graph.get_page_info('first_name, location, link, email, posts, picture')
 
-        pages_data = graph.get_object('me/accounts', fields='overall_star_rating,name,username, instagram_business_account,about,access_token,description,cover,picture')        
-
-        context = {'pages':  pages_data["data"], "show": show}
-
-
-        # testing over here 
-        # getting facebook pages that are connected to Instagram
-        
-        for page in pages_data["data"]:
-            if 'connected_instagram_account' in page.keys():
-                print(page)
-            # page_data_s = graph.get_object(page['id'], fields="name, connected_instagram_account")
-            # if 'connected_instagram_account' in page_data_s.keys():
-            
-            #     instagram_data = graph.get_object("17841404143403828/media", metric="likes", fields="name, username, website, profile_picture_url, biography, followers_count, follows_count")
-
-            #     print(instagram_data)
+        context = {'pages':  graph.get_pages(), "show": show}
 
         return render(request, "clients/pages.html", context)
 
@@ -415,12 +129,9 @@ class SinglePageView(ListView):
         user = User.objects.get(pk=request.user.id)
         user = user.social_auth.get(provider="facebook")
 
+        graph = facebook.GraphAPI(token, page_id)
 
-
-        graph = facebook.GraphAPI(token)
-        posts = graph.get_object('{}/posts'.format(page_id), fields='id, message, actions')
-
-        context = {'posts':  posts['data'], 'page_id': page_id, 'page_name': page_name, 'page_token': token}
+        context = {'posts':  graph.get_page_posts(), 'page_id': page_id, 'page_name': page_name, 'page_token': token}
 
         return render(request, "clients/single-page.html", context)
 
@@ -432,8 +143,10 @@ class UserProfileView(ListView):
         u = user.social_auth.get()
 
         if "twitter" == u.provider:
-            print("redirecitng now---------")
             return redirect('twitter:user-profile')
+        elif "linkedin-oauth2" == u.provider:
+            return redirect('linkedin:user-profile')
+        
 
         social_user = user.social_auth.get()
 

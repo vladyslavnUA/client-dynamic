@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     'accounts',
     'clients',
     'instagramApi',
-    "twitterApi"
+    "twitterApi",
+    "linkedinApi"
 ]
 
 MIDDLEWARE = [
@@ -113,7 +114,19 @@ SOCIAL_AUTH_INSTAGRAM_SECRET = str(os.getenv('INSTAGAM_SECRET'))  #Client SECRET
 SOCIAL_AUTH_INSTAGRAM_EXTRA_DATA = [('user', 'user'),]
 SOCIAL_AUTH_INSTAGRAM_AUTH_EXTRA_ARGUMENTS = {'scope': 'user_profile'}
 
-
+# Linkedin Keys
+# add this code
+SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = str(os.getenv('LINKEDIN_KEY'))         #Client ID
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = str(os.getenv('LINKEDIN_SECRET'))         #Client ID  #Client Secret
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = ['r_liteprofile', 'r_emailaddress', 'w_member_social']
+SOCIAL_AUTH_LINKEDIN_OAUTH2_FIELD_SELECTORS = ['email-address', 'formatted-name', 'public-profile-url', 'picture-url']
+SOCIAL_AUTH_LINKEDIN_OAUTH2_EXTRA_DATA = [
+    ('id', 'id'),
+    ('formattedName', 'name'),
+    ('emailAddress', 'email_address'),
+    ('pictureUrl', 'picture_url'),
+    ('publicProfileUrl', 'profile_url'),
+]
 
 WSGI_APPLICATION = 'clientdynamic.wsgi.application'
 
