@@ -90,9 +90,6 @@ class IndexView(ListView):
         return impressions, reach, profile_views, engagement, follower_count, website_clicks
 
 
-
-
-
     def getMentions(self, graph, ig_id):
         # data = graph.get_object(ig_id, fields="mentioned_comment")
 
