@@ -9,6 +9,7 @@ from django.shortcuts import render, HttpResponseRedirect
 import os
 import tweepy as tw
 from clients.models import User
+from twitterApi.twitterAPI import TwitterAPI
 
 class ProfileView(ListView):
 
@@ -45,23 +46,25 @@ def getCreds(social_user):
     token_key = social_user.extra_data['access_token']['oauth_token']
     token_secret = social_user.extra_data['access_token']['oauth_token_secret']
     obj = {"twitter_key":twitter_key, "twitter_secret":twitter_secret, "token_key":token_key, "token_secret": token_secret}
-    return obj 
+    return obj
 
 
 class DashboardView(ListView):
 
+    def get_sum(self, data):
+        total = 0
+        for i in data:
+            total += i
+        return total
+
+
     def get(self, request):
         user = request.user
         social_user = user.social_auth.get()
-        cruds = getCreds(social_user)
 
-        auth = tw.OAuthHandler(cruds["twitter_key"], cruds["twitter_secret"])
-        auth.set_access_token(cruds["token_key"], cruds["token_secret"])
-        api = tw.API(auth, wait_on_rate_limit=True)
+        api = TwitterAPI(social_user)
 
-        public_tweets = api.home_timeline()
-
-        context = {"tweets": public_tweets}
+        context = {"tweets": api.get_home_timeline()}
         return render(request, 'twitterApi/dashboard.html', context)
 
 def UpdateStatus(req):
