@@ -140,21 +140,25 @@ class UserProfileView(ListView):
         user = User.objects.get(pk=request.user.id)
 
         # print("-------------------")
-        u = user.social_auth.get()
-
-        if "twitter" == u.provider:
-            return redirect('twitter:user-profile')
-        elif "linkedin-oauth2" == u.provider:
-            return redirect('linkedin:user-profile')
-        
 
         social_user = user.social_auth.get()
+        social_use = social_user.extra_data.get('id')
+        # token = social_user.extra_data['access_token']
+        social_s = social_user.extra_data
+        print("Social User: ", social_user)
+        print("Social: ", social_s)
+        
+        if "twitter" == social_user.provider:
+            return redirect('twitter:user-profile')
+        elif "linkedin-oauth2" == social_user.provider:
+            return redirect('linkedin:user-profile')
+        
 
         name = False
         if user.last_name != "" and user.last_name != "":
             name = str(user.first_name)+" "+str(user.last_name)
         
-        context = {"user": user, "name": name, "social_user": social_user.extra_data }
+        context = {"user": user, "name": name, "social_user": social_user.extra_data, "account_id": social_use }
         
         if 'picture' in social_user.extra_data:
             context['picture'] =  social_user.extra_data["picture"]["data"]["url"]
