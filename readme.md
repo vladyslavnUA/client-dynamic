@@ -45,7 +45,7 @@ Client Dynamic is the perfect place to manage your social media presence, track 
 |                            | Client Dynamic  | Other Services |
 | -------------------------- | :----------------: | :-------------: |
 | <img src="assets/images/fb.png" alt="fb" width="20" height="20"> Facebook API            |         ✔️         |        ✔️        |
-| <img src="assets/images/in.png" alt="in" width="20" height="20"> Instagram API             |         ✔️         |        ✔️        |
+| <img src="assets/images/ins.png" alt="in" width="20" height="20"> Instagram API             |         ✔️         |        ✔️        |
 | <img src="assets/images/tw.png" alt="tw" width="20" height="20"> Twitter API        |         ✔️         |        ✔️        |
 | <img src="assets/images/in.png" alt="in" width="20" height="20"> LinkedIn API |         ✔️         |        ✔️        |
 | <img src="assets/images/an.png" alt="an" width="20" height="20"> Real-Time Analytics          |         ✔️         |        ✔️        |
