@@ -72,10 +72,8 @@ def UpdateStatus(req):
         message=req.POST.get('message')
         user = req.user
         social_user = user.social_auth.get()
-        cruds = getCreds(social_user)
-        auth = tw.OAuthHandler(cruds["twitter_key"], cruds["twitter_secret"])
-        auth.set_access_token(cruds["token_key"], cruds["token_secret"])
-        api = tw.API(auth, wait_on_rate_limit=True)
-        api.update_status(message)
+        
+        api = TwitterAPI(social_user)
+        api.post_status(message)
 
     return HttpResponseRedirect(reverse('twitter:dashboard'))

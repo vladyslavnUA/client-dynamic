@@ -23,3 +23,6 @@ class TwitterAPI(object):
     def get_home_timeline(self):
         public_tweets = self.api.home_timeline()
         return public_tweets
+
+    def post_status(self, message):
+        self.api.update_status(message)
