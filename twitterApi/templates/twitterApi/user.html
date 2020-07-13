@@ -138,7 +138,9 @@
                       <div class="col-md-8">
                         <div class="form-group">
                           <label>About Me</label>
-                          <textarea rows="4" cols="80" class="form-control" placeholder="Here can be your description" name="bio">{{user.profile.bio}}</textarea>
+                          <textarea rows="4" cols="80" class="form-control" placeholder="Here can be your description" name="bio">
+                              {{ user.profile.bio|default:bio }}
+                          </textarea>
                         </div>
                       </div>
                     </div>

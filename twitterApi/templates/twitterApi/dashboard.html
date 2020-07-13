@@ -345,14 +345,20 @@
                     {% for tweet in tweets %}
                           <div class="col-md-4 mb-3">
                             <div class="container">
-                            <div class="row justify-content-center">
-                                <blockquote class="twitter-tweet">
-                                  <p lang="en" dir="ltr">
-                                    {{tweet.text}}
-                                    <a href="https://t.co/m93L28M7xh">https://t.co/m93L28M7xh</a>
-                                  </p>&mdash; {{tweet.user.name}} (@{{tweet.user.screen_name}}) 
-                                  <a href="https://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.id}}?ref_src=twsrc%5Etfw">{{tweet.created_at}}</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                            </div>
+                              <div class="row justify-content-center">
+                                  <blockquote class="twitter-tweet">
+                                    <p lang="en" dir="ltr">
+                                      {{tweet.text}}
+                                      <a href="https://t.co/m93L28M7xh">https://t.co/m93L28M7xh</a>
+                                    </p>&mdash; {{tweet.user.name}} (@{{tweet.user.screen_name}}) 
+                                    <a href="https://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.id}}?ref_src=twsrc%5Etfw">{{tweet.created_at}}</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                              </div>
+                              <div class="row justify-content-center">
+                                <a class="btn btn-danger" href="{% url 'twitter:delete-tweet' tweet.id %}">Delete</a>
+                                <a class="btn btn-success" href="{% url 'twitter:retweet' tweet.id %}">Retweet</a>
+                                <a class="btn btn-primary" href="{% url 'twitter:like-tweet' tweet.id %}">Like</a>
+
+                              </div>
                           </div>
                         </div>
                       {% endfor %}

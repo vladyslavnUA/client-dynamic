@@ -6,22 +6,33 @@ from django.views.generic.edit import (
     UpdateView,
     DeleteView)
 from django.shortcuts import render, HttpResponseRedirect
-import os
+import os, json
 import tweepy as tw
 from clients.models import User
 from twitterApi.twitterAPI import TwitterAPI
+from django.core.files.storage import FileSystemStorage
+
 
 class ProfileView(ListView):
-
-
 
     def get(self, request):
 
         user = request.user
-        
+        social_user = user.social_auth.get()
+
+        api = TwitterAPI(social_user)
+
+        user_info = api.get_user_info()
 
 
-        return render(request, 'twitterApi/user.html')
+        context = {
+            "picture": user_info["profile_image_url"],
+            "name": user_info["name"],
+            "bio": str(user_info["description"]),
+        }
+
+
+        return render(request, 'twitterApi/user.html', context)
 
 
     def post(self, request):
@@ -35,7 +46,6 @@ class ProfileView(ListView):
         user.profile.company = request.POST.get("company")
         user.profile.bio = request.POST.get("bio")
         user.profile.role = request.POST.get("role")
-
 
         user.save()
         return HttpResponseRedirect(reverse('twitter:dashboard'))
@@ -51,29 +61,61 @@ def getCreds(social_user):
 
 class DashboardView(ListView):
 
-    def get_sum(self, data):
-        total = 0
-        for i in data:
-            total += i
-        return total
-
-
     def get(self, request):
         user = request.user
         social_user = user.social_auth.get()
-
         api = TwitterAPI(social_user)
+        # followers = api.get_followers_list()
+        # incoming_friendships = api.get_incoming_friendships()
+        # outgoing_friendships = api.get_outgoing_friendships()
+        # api.get_lookup_friendships('screen_name,screen_name,screen_name' )
+        # home_timeline = api.get_home_timeline(5)
+        # mentions_timeline = api.get_mentions_timeline(10)
+        # user_timeline = api.get_user_timeline(10)
+        # favorite_tweets = api.get_favorite_tweets()
+        # like_tweet = api.like_tweet(tweet_id)
+        # unlike_tweet = api.unlike_tweet(tweet_id)
+        # retweets_of_me = api.retweets_of_me()
 
-        context = {"tweets": api.get_home_timeline()}
+        # print(json.dumps(api.retweets_of_me(), indent=4), "\n")
+
+        context = {"tweets": api.retweets_of_me()}
         return render(request, 'twitterApi/dashboard.html', context)
 
 def UpdateStatus(req):
     if req.method == 'POST':
         message=req.POST.get('message')
+        image=req.POST.get('image')
+        link=req.POST.get('link')
         user = req.user
         social_user = user.social_auth.get()
-        
         api = TwitterAPI(social_user)
-        api.post_status(message)
 
+        uploaded_attachment_url = None
+        if image is not "":
+            attachment = req.FILES['image']
+            fs = FileSystemStorage()
+            filename = fs.save(attachment.name, attachment)
+            uploaded_attachment_url = fs.url(filename)
+
+        print(json.dumps(api.post_tweet(message, uploaded_attachment_url), indent=4))
+
+    return HttpResponseRedirect(reverse('twitter:dashboard'))
+
+def DeleteTweet(req, tweet_id):
+    social_user = req.user.social_auth.get()
+    api = TwitterAPI(social_user)
+    print(api.delete_tweet(tweet_id))
+    return HttpResponseRedirect(reverse('twitter:dashboard'))
+
+def Retweet(req, tweet_id):
+    social_user = req.user.social_auth.get()
+    api = TwitterAPI(social_user)
+    print(api.post_retweet(tweet_id))
+    return HttpResponseRedirect(reverse('twitter:dashboard'))
+
+def LikeTweet(req, tweet_id):
+    social_user = req.user.social_auth.get()
+    api = TwitterAPI(social_user)
+    print(api.like_tweet(tweet_id))
     return HttpResponseRedirect(reverse('twitter:dashboard'))
