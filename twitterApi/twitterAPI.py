@@ -47,13 +47,11 @@ class TwitterAPI(object):
         resp, content = self.client.request(url+"?id="+str(tweet_id), "POST")
         return json.loads(content.decode('utf-8'))
 
-
     def retweets_of_me(self, count=5):
         url = 'https://api.twitter.com/1.1/statuses/retweets_of_me.json'
         resp, content = self.client.request(url+"?count="+str(count), "GET")
         return json.loads(content.decode('utf-8'))
 
-        
     def upload_media(self, filename):
         url_media = "https://upload.twitter.com/1.1/media/upload.json"
         url_text = "https://api.twitter.com/1.1/statuses/update.json"
@@ -130,6 +128,7 @@ class TwitterAPI(object):
         resp, content = self.client.request(show_user_url + '?user_id=' + str(self.cruds["user_id"]), "GET")
 
         return json.loads(content.decode('utf-8'))
+
 
 
 
