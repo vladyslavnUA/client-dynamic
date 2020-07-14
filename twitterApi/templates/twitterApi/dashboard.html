@@ -89,94 +89,9 @@
       </div>
       <!-- End Navbar -->
       <div class="content">
-        <div class="row">
-          <div class="col-12">
-            <div class="card card-chart">
-              <div class="card-header ">
-                <div class="row">
-                  <div class="col-sm-6 text-left">
-                    <h5 class="card-category"> {{page.name}} Insights</h5>
-                    <h2 class="card-title">Performance</h2>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
-                      <label class="btn btn-sm btn-primary btn-simple active" id="0">
-                        <input type="radio" name="options" checked>
-                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Engagement</span>
-                        <span class="d-block d-sm-none">
-                          <i class="tim-icons icon-single-02"></i>
-                        </span>
-                      </label>
-                      <label class="btn btn-sm btn-primary btn-simple" id="1">
-                        <input type="radio" class="d-none d-sm-none" name="options">
-                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Reach</span>
-                        <span class="d-block d-sm-none">
-                          <i class="tim-icons icon-gift-2"></i>
-                        </span>
-                      </label>
-                      <label class="btn btn-sm btn-primary btn-simple" id="2">
-                        <input type="radio" class="d-none" name="options">
-                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Impression</span>
-                        <span class="d-block d-sm-none">
-                          <i class="tim-icons icon-tap-02"></i>
-                        </span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="chart-area">
-                  <canvas id="chartBig1"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="card card-chart">
-              <div class="card-header">
-                <h5 class="card-category">Follower Count</h5>
-                <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> {{total_page_engagments}}</h3>
-              </div>
-              <div class="card-body">
-                <div class="chart-area">
-                  <canvas id="chartLinePurple"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card card-chart">
-              <div class="card-header">
-                <h5 class="card-category">Profile Views</h5>
-                <h3 class="card-title"><i class="tim-icons icon-delivery-fast text-info"></i> 3,500</h3>
-              </div>
-              <div class="card-body">
-                <div class="chart-area">
-                  <canvas id="CountryChart"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card card-chart">
-              <div class="card-header">
-                <h5 class="card-category">Website Click</h5>
-                <h3 class="card-title"><i class="tim-icons icon-send text-success"></i>{{total_cta}}</h3>
-              </div>
-              <div class="card-body">
-                <div class="chart-area">
-                  <canvas id="chartLineGreen"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="row ">
-            <div class="col-6">
+
+          <div class="col-6">
               <div class="card">
                 <div class="card-header text-center">
                   <h3 class="card-title">Post Tweet</h3>
@@ -188,8 +103,8 @@
                     <form class="mt-4" action="{% url 'twitter:post-tweet' %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group">
-                          <label for="exampleFormControlTextarea1" class="w-100">What's on your mind?
-                            <textarea class="form-control" name="message" id="exampleFormControlTextarea1" rows="3"></textarea>
+                          <label for="exampleFormControlTextarea1" class="w-100 h-auto">What's on your mind?
+                            <textarea class="form-control p-5 " name="message" id="exampleFormControlTextarea1" rows="100" style="height: 200px;"></textarea>
                           </label>
   
                           <label for="" class="w-100">
@@ -229,14 +144,14 @@
                               </div>
                           </div>
   
-                          <button type="submit" class="btn btn-group btn-primary w-100 p-2 pb-3 mt-2" style="text-align: center;display: inline-block;">Tweet</button>
+                          <button type="submit" class="btn btn-group btn-primary w-100 p-2 pb-3 mt-3" style="text-align: center;display: inline-block;">Tweet</button>
                         </div>
                     </form>
                 </div>
               </div>
-            </div>
-            
-            <div class="col-6">
+          </div>
+              
+          <div class="col-6">
               <div class="card">
                   <div class="card-header text-center">
                     <h3 class="card-title">Tweet Preview</h3>
@@ -244,29 +159,31 @@
                   <div class="body">
                     <div class="col bg-white p-5 pb-4">
                       <div class="row">
-                        <div class="d-inline p-2"><img style="border-bottom-right-radius: 50%;border-bottom-left-radius: 50%;border-top-right-radius: 50%;border-top-left-radius:50%;" src="{{picture}}" width="40" height="40" alt=""></div>
-                        <div class="d-inline p-2 pl-0" id="preview_title">{{name}} <br> <small> </small></div>
+                        <div class="d-inline p-2"><img style="border-bottom-right-radius: 50%;border-bottom-left-radius: 50%;border-top-right-radius: 50%;border-top-left-radius:50%;" src="{{social_user.profile_image_url}}" width="40" height="40" alt=""></div>
+                        <div class="d-inline p-2 pl-0" id="preview_title">{{social_user.name}} <br> @<small>{{social_user.screen_name}} </small></div>
                       </div>
-                      <div class="row text-dark">
-                        <span id="preview_message"></span>
+                      <div class="row text-dark w-75 m-auto">
+                        <span id="preview_message">Hello world!</span>
                       </div>
-                      <div class="row mt-3 justify-content-center">
-                          <div id="carouselExampleControls" class="carousel slide w-100" data-ride="carousel">
+                      <div class="row w-75 m-auto">
+                          <div id="carouselExampleControls" class="carousel slide w-100 mt-3" data-ride="carousel">
                               <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                  <img class="d-block w-100" id="preview_image" src="#" alt="No preview image">
+                                  <img class="d-block" id="preview_image" src="https://www.alertpss.com/wp-content/uploads/2017/03/empty-spacer-blank-transparent-placeholder.png"  alt="No preview image">
                                 </div>
                               </div>
-                              <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                              <!-- <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
                               </a>
                               <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
-                              </a>
-                            </div>
+                              </a> -->
+                          </div>
+
                       </div>
+                      <span class="pull-right"><small>{% now "F jS, Y" %}</small></span>
                     </div>
                     <div class="col bg-secondary w-100 p-3">
   
@@ -328,11 +245,29 @@
               }
   
           </script>
-          
-          
           </div>
-  
+              
+          <div class="col-6">
+              <div class="card">
+                <div class="card-header text-center">
+                  <h3 class="card-title">Home Timeline</h3>
+                </div>
+                <div class="card-body overflow-auto" style="height: 700px">
+                    <a class="twitter-timeline " href="https://twitter.com/{{social_user.screen_name}}?ref_src=twsrc%5Etfw">Tweets by TwitterDev</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+              </div>
           </div>
+          
+          <div class="col-6">
+              <div class="card">
+                <div class="card-header text-center">
+                  <h3 class="card-title">Liked Tweets</h3>
+                </div>
+                <div class="card-body overflow-auto" style="height: 700px">
+                    <a class="twitter-timeline" href="https://twitter.com/{{social_user.screen_name}}/likes?ref_src=twsrc%5Etfw">Tweets Liked by @TwitterDev</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>                  </div>
+              </div>
+          </div>
+        </div>
         
         <div class="col-12">
           <div class="card ">

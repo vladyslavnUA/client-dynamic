@@ -4,8 +4,12 @@ import os, requests, base64, random, time, json, hmac, hashlib, re
 from escape import Escape as escape
 from oauthlib.oauth1.rfc5849.signature import collect_parameters
 from six.moves import urllib
-from requests_oauthlib import OAuth1Session, OAuth1
+from requests_oauthlib import OAuth1Session
 import oauth2 as oauth
+import woeid
+from yahoo_oauth import OAuth1
+
+
 
 class TwitterAPI(object):
 
@@ -14,8 +18,7 @@ class TwitterAPI(object):
         consumer = oauth.Consumer(self.cruds["twitter_key"], self.cruds["twitter_secret"])
         token = oauth.Token(self.cruds["token_key"], self.cruds["token_secret"])
         self.client = oauth.Client(consumer, token)
-
-
+        self.get_trends()
 
 
     def post_tweet(self, message, image):
@@ -50,8 +53,31 @@ class TwitterAPI(object):
     def retweets_of_me(self, count=5):
         url = 'https://api.twitter.com/1.1/statuses/retweets_of_me.json'
         resp, content = self.client.request(url+"?count="+str(count), "GET")
+
         return json.loads(content.decode('utf-8'))
 
+    def get_trends(self, location=None):
+        pass
+
+        # app_id = "dj0yJmk9ZlpaY0MyY1ZnQWVEJnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTJl"
+        # text = "nyc"
+        # yahoo = 'http://where.yahooapis.com/v1/places.q(\'%s\')?appid=%s&format=json' % (text, app_id)
+
+        # r = requests.get(url)
+        # jsondata = r.text
+
+        # print(jsondata)
+        # sfid = "ChIJIQBpAG2ahYAR_6128GcTUEo"
+        # resp, content = self.client.request(url+"?id="+sfid)
+
+        # data = json.loads(content.decode('utf-8'))
+        
+        # print(data)
+        # for trends in data:
+        #     for trend in trends['trends']:
+        #         print("\n", json.dumps(trend['name'], indent=4))
+        #         print(json.dumps(trend['url'], indent=4), "\n")
+            
     def upload_media(self, filename):
         url_media = "https://upload.twitter.com/1.1/media/upload.json"
         url_text = "https://api.twitter.com/1.1/statuses/update.json"
@@ -125,8 +151,9 @@ class TwitterAPI(object):
         
         show_user_url = 'https://api.twitter.com/1.1/users/show.json'
 
-        resp, content = self.client.request(show_user_url + '?user_id=' + str(self.cruds["user_id"]), "GET")
+        resp, content = self.client.request(show_user_url + '?user_id=' + str(self.cruds["user_id"])+"&include_email=true", "GET")
 
+        print(json.loads(content.decode('utf-8')))
         return json.loads(content.decode('utf-8'))
 
 
