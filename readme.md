@@ -78,6 +78,7 @@ Reach out to any of the developers (authors) for support of this project.
 2. Login/Signup Page
 ![Login Page](https://i.imgur.com/h6d5s7L.png)
 
+<!--
 3. User Profile Page
 ![User Profile](https://i.imgur.com/88HVOtB.png)
 
@@ -91,7 +92,7 @@ Reach out to any of the developers (authors) for support of this project.
 ![Dashboard Page](https://i.imgur.com/oyuXzDZ.png)
 
 7. Posts View
-![Posts View](https://i.imgur.com/05cmY9R.png)
+![Posts View](https://i.imgur.com/05cmY9R.png) -->
 
 ## License
 
