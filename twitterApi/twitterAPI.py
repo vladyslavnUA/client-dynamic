@@ -5,7 +5,6 @@ from oauthlib.oauth1.rfc5849.signature import collect_parameters
 from six.moves import urllib
 from requests_oauthlib import OAuth1Session
 import oauth2 as oauth
-import woeid
 from yahoo_oauth import OAuth1
 
 
