@@ -7,7 +7,6 @@ from django.views.generic.edit import (
     DeleteView)
 from django.shortcuts import render, HttpResponseRedirect
 import os, json
-import tweepy as tw
 from clients.models import User
 from twitterApi.twitterAPI import TwitterAPI
 from django.core.files.storage import FileSystemStorage
