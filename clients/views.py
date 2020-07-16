@@ -20,7 +20,6 @@ import facebook
 import json
 import os
 from django.core.files.storage import FileSystemStorage
-from instagram.client import InstagramAPI
 from .facebookAPI import FacebookAPI
 
 class IndexView(ListView):
