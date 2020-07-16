@@ -1,4 +1,4 @@
-import tweepy as tw
+
 from dateutil import parser
 import os, requests, base64, random, time, json, hmac, hashlib, re
 from escape import Escape as escape
