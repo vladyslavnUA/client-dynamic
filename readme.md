@@ -37,6 +37,11 @@
 ## About
 Client Dynamic is the perfect place to manage your social media presence, track your real-time analytics, manage and create content, and store your data.
 
+## Publications
+[Client Dynamic](https://medium.com/@abdullah.noori/client-dynamic-81a83c6ca19b) by [Abdullah Noori](https://github.com/AbdullahNoori)
+<br>
+[How businesses can utilize Client Dynamic to manage their social media presence](https://medium.com/@vladyslav.nykoliuk/how-businesses-can-utilize-client-dynamic-to-manage-their-social-media-presence-8416ea5bf83) by [Vladyslav Nykoliuk](https://twitter.com/voragoes)
+
 ---
 <br>Visit our site, currently Live @ https://clientdynamic.herokuapp.com/
 
