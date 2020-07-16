@@ -9,10 +9,10 @@
 
 <p align="center">
 
-![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)
 <!-- ![Website](https://img.shields.io/website?up_message=online&url=https%3A%2F%2Fclientdynamic.herokuapp.com%2F) -->
-![GitHub contributors](https://img.shields.io/github/contributors/vladyslavnUA/client-dynamic)
 <!-- ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/vladyslavnUA/client-dynamic) -->
+![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)
+![GitHub contributors](https://img.shields.io/github/contributors/vladyslavnUA/client-dynamic)
 ![GitHub issues](https://img.shields.io/github/issues/vladyslavnUA/client-dynamic)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/vladyslavnUA/client-dynamic)
 ![GitHub top language](https://img.shields.io/github/languages/top/vladyslavnUA/client-dynamic)
