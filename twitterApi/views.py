@@ -69,8 +69,8 @@ class DashboardView(ListView):
         # incoming_friendships = api.get_incoming_friendships()
         # outgoing_friendships = api.get_outgoing_friendships()
         # api.get_lookup_friendships('screen_name,screen_name,screen_name' )
-        home_timeline = api.get_home_timeline(1)
-        # mentions_timeline = api.get_mentions_timeline(10)
+        # home_timeline = api.get_home_timeline(1)
+        mentions_timeline = api.get_mentions_timeline(10)
         # user_timeline = api.get_user_timeline(10)
         # favorite_tweets = api.get_favorite_tweets()
         # like_tweet = api.like_tweet(tweet_id)
@@ -82,7 +82,7 @@ class DashboardView(ListView):
         
         print(json.dumps(user_info, indent=4), "\n")
 
-        context = {"tweets": api.retweets_of_me(), 'social_user': user_info}
+        context = {"tweets": mentions_timeline, 'social_user': user_info}
         return render(request, 'twitterApi/dashboard.html', context)
 
 def UpdateStatus(req):

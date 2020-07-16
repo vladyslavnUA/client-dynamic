@@ -50,12 +50,16 @@
                             {% if not user.is_authenticated %}
 
                         <a class="btn btn-outline-primary p-3" style="color: blue" role="button" href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
-                        <a class="btn btn-outline-primary p-3" style="color: blue" role="button" href="{% url 'social:begin' 'twitter' %}">Login with Twitter</a>
-                        <a class="btn btn-outline-primary p-3" style="color: blue" role="button" href="{% url 'social:begin' 'instagram' %}?next={{ request.GET.next }}">Login with Instagram</a>
-                        <a class="btn btn-outline-primary p-3" style="color: blue" role="button" href="{% url 'social:begin' 'linkedin-oauth2' %}">Login with LinkedIn</a>
+                        <a class="btn btn-outline-primary p-3" style="color: #1DA1F2" role="button" href="{% url 'social:begin' 'twitter' %}">Login with Twitter</a>
+
+
+
+                        <!-- <a class="btn btn-outline-primary p-3" style="color: blue" role="button" href="{% url 'social:begin' 'instagram' %}?next={{ request.GET.next }}">Login with Instagram</a> -->
+                        <!-- <a class="btn btn-outline-primary p-3" style="color: blue" role="button" href="{% url 'social:begin' 'linkedin-oauth2' %}">Login with LinkedIn</a> -->
                         {% else %}
-                            <a class="btn btn-outline-primary p-3" style="color: blue" role="button" href="{% url 'logout-social' %}">Login with Facebook</a>
-                            <a class="btn btn-outline-primary p-3" style="color: blue" role="button" href="{% url 'logout-social' %}">Login with Twitter</a>
+                            <a class="btn btin-twitter p-3" style="color: blue" role="button" href="{% url 'logout-social' %}">Logout</a>
+                         
+                            <!-- <a class="btn btn-outline-primary p-3" style="color: #1DA1F2" role="button" href="{% url 'logout-social' %}">Login with Twitter</a> -->
                         {% endif %}
                     <!-- </button> -->
                     <!-- <button class="btn mb-2">
