@@ -46,10 +46,13 @@ six==1.15.0
 social-auth-app-django==3.4.0
 social-auth-core==3.3.3
 sqlparse==0.3.1
+tweepy==3.8.0
 Unidecode==1.1.1
 urllib3==1.25.9
 virtualenv==20.0.26
 virtualenv-clone==0.5.4
 Werkzeug==0.14.1
 whitenoise==5.1.0
+woeid==1.0.0
+yahoo-oauth==1.0
 zipp==3.1.0
