@@ -26,6 +26,7 @@
 
 <p align="center">
   <a href="#about">About</a> •
+  <a href="#publications">Publications</a> •
   <a href="#features">Features</a> •
   <a href="#user-flow">User Flow</a> •
   <a href="#authors">Authors</a> •
@@ -40,7 +41,7 @@ Client Dynamic is the perfect place to manage your social media presence, track 
 ## Publications
 [Client Dynamic](https://medium.com/@abdullah.noori/client-dynamic-81a83c6ca19b) by [Abdullah Noori](https://github.com/AbdullahNoori)
 <br>
-[How businesses can utilize Client Dynamic to manage their social media presence](https://medium.com/@vladyslav.nykoliuk/how-businesses-can-utilize-client-dynamic-to-manage-their-social-media-presence-8416ea5bf83) by [Vladyslav Nykoliuk](https://twitter.com/voragoes)
+[How Businesses Can Utilize Client Dynamic to Manage Their Social Media Presence](https://medium.com/@vladyslav.nykoliuk/how-businesses-can-utilize-client-dynamic-to-manage-their-social-media-presence-8416ea5bf83) by [Vladyslav Nykoliuk](https://twitter.com/voragoes)
 
 ---
 <br>Visit our site, currently Live @ https://clientdynamic.herokuapp.com/
