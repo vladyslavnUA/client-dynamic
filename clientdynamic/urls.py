@@ -22,6 +22,7 @@ urlpatterns = [
     path('', include('instagramApi.urls')),
     path('', include('twitterApi.urls')),
     path('', include('linkedinApi.urls')),
+    path('', include('facebookApi.urls')),
     
     # OATH URLS
     path('accounts/', include('django.contrib.auth.urls')),
