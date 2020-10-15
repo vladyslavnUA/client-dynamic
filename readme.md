@@ -9,10 +9,10 @@
 
 <p align="center">
 
+<!-- ![Website](https://img.shields.io/website?up_message=online&url=https%3A%2F%2Fclientdynamic.herokuapp.com%2F) -->
+<!-- ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/vladyslavnUA/client-dynamic) -->
 ![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)
-![Website](https://img.shields.io/website?up_message=online&url=https%3A%2F%2Fclientdynamic.herokuapp.com%2F)
 ![GitHub contributors](https://img.shields.io/github/contributors/vladyslavnUA/client-dynamic)
-![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/vladyslavnUA/client-dynamic)
 ![GitHub issues](https://img.shields.io/github/issues/vladyslavnUA/client-dynamic)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/vladyslavnUA/client-dynamic)
 ![GitHub top language](https://img.shields.io/github/languages/top/vladyslavnUA/client-dynamic)
@@ -26,6 +26,7 @@
 
 <p align="center">
   <a href="#about">About</a> •
+  <a href="#publications">Publications</a> •
   <a href="#features">Features</a> •
   <a href="#user-flow">User Flow</a> •
   <a href="#authors">Authors</a> •
@@ -36,6 +37,11 @@
 
 ## About
 Client Dynamic is the perfect place to manage your social media presence, track your real-time analytics, manage and create content, and store your data.
+
+## Publications
+[Client Dynamic](https://medium.com/@abdullah.noori/client-dynamic-81a83c6ca19b) by [Abdullah Noori](https://github.com/AbdullahNoori)
+<br>
+[How Businesses Can Utilize Client Dynamic to Manage Their Social Media Presence](https://medium.com/@vladyslav.nykoliuk/how-businesses-can-utilize-client-dynamic-to-manage-their-social-media-presence-8416ea5bf83) by [Vladyslav Nykoliuk](https://twitter.com/voragoes)
 
 ---
 <br>Visit our site, currently Live @ https://clientdynamic.herokuapp.com/
@@ -78,6 +84,7 @@ Reach out to any of the developers (authors) for support of this project.
 2. Login/Signup Page
 ![Login Page](https://i.imgur.com/h6d5s7L.png)
 
+<!--
 3. User Profile Page
 ![User Profile](https://i.imgur.com/88HVOtB.png)
 
@@ -91,7 +98,7 @@ Reach out to any of the developers (authors) for support of this project.
 ![Dashboard Page](https://i.imgur.com/oyuXzDZ.png)
 
 7. Posts View
-![Posts View](https://i.imgur.com/05cmY9R.png)
+![Posts View](https://i.imgur.com/05cmY9R.png) -->
 
 ## License
 

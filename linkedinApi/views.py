@@ -10,7 +10,7 @@ import requests
 import json
 import datetime
 
-from linkedin_v2 import linkedin
+# from linkedin_v2 import linkedin
 
 
 
@@ -45,11 +45,11 @@ class ProfileView(ListView):
 
         token = social_user.extra_data['access_token']
 
-        application = linkedin.LinkedInApplication(token=token)
+        # application = linkedin.LinkedInApplication(token=token)
 
 
 
-        profile = application.get_profile(member_id=1412421)
+        # profile = application.get_profile(member_id=1412421)
         # connections = application.get_connections()
 
         self.makeApiCall(token, social_user.extra_data['id'])

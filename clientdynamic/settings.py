@@ -32,7 +32,8 @@ INSTALLED_APPS = [
     'clients',
     'instagramApi',
     "twitterApi",
-    "linkedinApi"
+    "linkedinApi",
+    "facebookApi",
 ]
 
 MIDDLEWARE = [

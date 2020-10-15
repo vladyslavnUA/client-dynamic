@@ -58,6 +58,6 @@ MarkupSafe = "==1.1.1"
 pyOpenSSL = "==19.1.0"
 Werkzeug = "==0.15.6"
 social-auth-app-django = "*"
-
+oauth2 = "==1.9.0.post1"
 [requires]
 python_version = "3.7"

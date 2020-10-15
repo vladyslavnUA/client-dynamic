@@ -9,10 +9,26 @@
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Sign up</button>
+            <div class="row justify-content-center mt-5 mb-5">
+
+            
+            {% if not user.is_authenticated %}
+
+                        <a class="btn btn-outline-primary p-3" style="color: blue" role="button" href="{% url 'social:begin' 'facebook' %}">Facebook</a>
+                        <a class="btn btn-outline-primary p-3" style="color: #1DA1F2" role="button" href="{% url 'social:begin' 'twitter' %}">Twitter</a>
+                        <a class="btn btn-outline-primary p-3" style="color: purple" role="button" href="{% url 'social:begin' 'instagram' %}">Instagram</a>
+                        <!-- <a class="btn btn-outline-primary p-3" style="color: blue" role="button" href="{% url 'social:begin' 'linkedin-oauth2' %}">Login with LinkedIn</a> -->
+                        {% else %}
+                            <a class="btn btin-twitter p-3" style="color: blue" role="button" href="{% url 'logout-social' %}">Logout</a>
+                         
+                            <!-- <a class="btn btn-outline-primary p-3" style="color: #1DA1F2" role="button" href="{% url 'logout-social' %}">Login with Twitter</a> -->
+                        {% endif %}
+
+                      </div>
             <div class="form group row">
                 <span>Already have an account <a href="{% url 'login' %}"> login here</a></span>
             </div>
-
+            
           </form>
     </div>
 {% endblock %}
