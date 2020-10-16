@@ -228,6 +228,49 @@
                                   </a>
                               </div>
                             </div>
+                          <div class="file-field">
+                              <div class="d-flex justify-content-center">
+                                <a href="javascript:void(0)" onclick="showInput(2)" class="btn btn-mdb-color btn-rounded float-left ml-3" data-toggle="modal" data-target="#exampleModal">
+                                      <i class="tim-icons icon-time-alarm"></i>
+                                  </a>
+                              </div>
+                            </div>
+                          <!-- POPUP -->
+                          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Schedule a Post</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <label for="onee" class="text-dark">Frequency
+                                        <input type="number" name="frequency" max="10" value="1" required>
+                                    </label>
+                                    
+                                    <br>
+                                    <label for="onee" class="text-dark">Choose how often:
+                                      <select name="select" id="select" required>
+                                        <option value="daily" selected>Daily</option>
+                                        <option value="weeekly">Weekly</option>
+                                        <option value="biweeekly">Bi-Weekly</option>
+                                        <option value="monthly">Monthly</option>
+                                      </select>
+                                    </label>
+
+                                    <label for="time" class="text-dark">Time
+                                      <input class="form-input" id="that" type="time" name="time" required>
+                                    </label>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-group btn-primary w-100 p-2 pb-3 mt-2" style="text-align: center;display: inline-block;">Post</button>
@@ -524,6 +567,10 @@
 
 
     });
+
+  $( "#other" ).click(function() {
+    $( ".target" ).change();
+  });
 
 </script>
 
