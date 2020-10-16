@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "twitterApi",
     "linkedinApi",
     "facebookApi",
+    "bots"
 ]
 
 MIDDLEWARE = [
